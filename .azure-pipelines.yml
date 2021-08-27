@@ -1,0 +1,167 @@
+#--------------------------------------------------------------------------------------------------
+# Windows
+#--------------------------------------------------------------------------------------------------
+
+jobs:
+- job: win32_qt4
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh mingw qt4
+      sh build.sh win32 all
+      cd deploy
+      7z a ../HelloConsole.zip *
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-win32-qt4
+
+- job: win32_qt5
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh build.sh win32 all
+      cd deploy
+      7z a ../HelloConsole.zip *
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-win32-qt5
+
+- job: win64_qt5
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh build.sh win64 all
+      cd deploy
+      7z a ../HelloConsole.zip *
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-win64-qt5
+
+#--------------------------------------------------------------------------------------------------
+
+- job: win32_msvc_qt5
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh msvc qt5
+      sh build.sh win32 all
+      cd deploy
+      7z a ../HelloConsole.zip *
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-win32-msvc-qt5
+
+- job: win64_msvc_qt5
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh environment.sh msvc qt5
+      sh build.sh win64 all
+      cd deploy
+      7z a ../HelloConsole.zip *
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-win64-msvc-qt5
+
+#--------------------------------------------------------------------------------------------------
+# macOS
+#--------------------------------------------------------------------------------------------------
+
+- job: macOS_qt5
+  pool:
+    vmImage: "macOS-latest"
+  steps:
+  - bash: |
+      sh build.sh macOS all
+      cd deploy
+      zip -rq ../HelloConsole.zip *
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-macOS-qt5
+
+#--------------------------------------------------------------------------------------------------
+# Linux
+#--------------------------------------------------------------------------------------------------
+
+- job: linux32_qt4
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/HelloConsole i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /HelloConsole;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip git;
+                                     sh environment.sh mingw qt4;
+                                     sh build.sh linux all;
+                                     cd deploy;
+                                     zip -rq ../HelloConsole.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-linux32-qt4
+
+- job: linux32_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/HelloConsole i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /HelloConsole;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip git;
+                                     sh build.sh linux all;
+                                     cd deploy;
+                                     zip -rq ../HelloConsole.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-linux32-qt5
+
+#--------------------------------------------------------------------------------------------------
+
+- job: linux64_qt4
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/HelloConsole amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /HelloConsole;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip git;
+                                     sh environment.sh mingw qt4;
+                                     sh build.sh linux all;
+                                     cd deploy;
+                                     zip -rq ../HelloConsole.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-linux64-qt4
+
+- job: linux64_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/HelloConsole amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /HelloConsole;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip git;
+                                     sh build.sh linux all;
+                                     cd deploy;
+                                     zip -rq ../HelloConsole.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-linux64-qt5
+
+#--------------------------------------------------------------------------------------------------
+# Android
+#--------------------------------------------------------------------------------------------------
+
+- job: android_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/HelloConsole amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /HelloConsole;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip unzip git;
+                                     sh 3rdparty.sh linux;
+                                     sh build.sh android all;
+                                     cd deploy;
+                                     zip -rq ../HelloConsole.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
+    artifact: HelloConsole-android-qt5
