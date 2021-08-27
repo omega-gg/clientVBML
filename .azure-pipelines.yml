@@ -11,9 +11,9 @@ jobs:
       sh environment.sh mingw qt4
       sh build.sh win32 all
       cd deploy
-      7z a ../HelloConsole.zip *
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-win32-qt4
+      7z a ../clientVBML.zip *
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-win32-qt4
 
 - job: win32_qt5
   pool:
@@ -22,9 +22,9 @@ jobs:
   - bash: |
       sh build.sh win32 all
       cd deploy
-      7z a ../HelloConsole.zip *
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-win32-qt5
+      7z a ../clientVBML.zip *
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-win32-qt5
 
 - job: win64_qt5
   pool:
@@ -33,9 +33,9 @@ jobs:
   - bash: |
       sh build.sh win64 all
       cd deploy
-      7z a ../HelloConsole.zip *
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-win64-qt5
+      7z a ../clientVBML.zip *
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-win64-qt5
 
 #--------------------------------------------------------------------------------------------------
 
@@ -47,9 +47,9 @@ jobs:
       sh environment.sh msvc qt5
       sh build.sh win32 all
       cd deploy
-      7z a ../HelloConsole.zip *
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-win32-msvc-qt5
+      7z a ../clientVBML.zip *
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-win32-msvc-qt5
 
 - job: win64_msvc_qt5
   pool:
@@ -59,9 +59,9 @@ jobs:
       sh environment.sh msvc qt5
       sh build.sh win64 all
       cd deploy
-      7z a ../HelloConsole.zip *
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-win64-msvc-qt5
+      7z a ../clientVBML.zip *
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-win64-msvc-qt5
 
 #--------------------------------------------------------------------------------------------------
 # macOS
@@ -74,9 +74,9 @@ jobs:
   - bash: |
       sh build.sh macOS all
       cd deploy
-      zip -rq ../HelloConsole.zip *
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-macOS-qt5
+      zip -rq ../clientVBML.zip *
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-macOS-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -87,31 +87,31 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/HelloConsole i386/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /HelloConsole;
+      docker run -d --name ubuntu -v $PWD:/clientVBML i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /clientVBML;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
                                      sh environment.sh mingw qt4;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../HelloConsole.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-linux32-qt4
+                                     zip -rq ../clientVBML.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-linux32-qt4
 
 - job: linux32_qt5
   pool:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/HelloConsole i386/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /HelloConsole;
+      docker run -d --name ubuntu -v $PWD:/clientVBML i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /clientVBML;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../HelloConsole.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-linux32-qt5
+                                     zip -rq ../clientVBML.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-linux32-qt5
 
 #--------------------------------------------------------------------------------------------------
 
@@ -120,31 +120,31 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/HelloConsole amd64/ubuntu:20.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /HelloConsole;
+      docker run -d --name ubuntu -v $PWD:/clientVBML amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /clientVBML;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
                                      sh environment.sh mingw qt4;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../HelloConsole.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-linux64-qt4
+                                     zip -rq ../clientVBML.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-linux64-qt4
 
 - job: linux64_qt5
   pool:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/HelloConsole amd64/ubuntu:20.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /HelloConsole;
+      docker run -d --name ubuntu -v $PWD:/clientVBML amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /clientVBML;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../HelloConsole.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-linux64-qt5
+                                     zip -rq ../clientVBML.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-linux64-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Android
@@ -155,13 +155,13 @@ jobs:
     vmImage: "ubuntu-latest"
   steps:
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/HelloConsole amd64/ubuntu:20.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /HelloConsole;
+      docker run -d --name ubuntu -v $PWD:/clientVBML amd64/ubuntu:20.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /clientVBML;
                                      apt-get update;
                                      apt-get -y install sudo curl zip unzip git;
                                      sh 3rdparty.sh linux;
                                      sh build.sh android all;
                                      cd deploy;
-                                     zip -rq ../HelloConsole.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/HelloConsole.zip
-    artifact: HelloConsole-android-qt5
+                                     zip -rq ../clientVBML.zip *"
+  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
+    artifact: clientVBML-android-qt5
