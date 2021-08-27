@@ -3,7 +3,7 @@ clientVBML
 [![azure](https://dev.azure.com/bunjee/clientVBML/_apis/build/status/omega-gg.clientVBML)](https://dev.azure.com/bunjee/clientVBML/_build)
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
-clientVBML is a VBML console application built with Sky kit.<br>
+clientVBML is a [VBML](http://omega.gg/VBML) console application built with Sky kit.<br>
 
 ## Technology
 
