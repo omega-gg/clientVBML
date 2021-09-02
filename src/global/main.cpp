@@ -22,6 +22,9 @@
 
 // Sk includes
 #include <WCoreApplication>
+#include <WControllerFile>
+#include <WControllerPlaylist>
+#include <WControllerMedia>
 
 //-------------------------------------------------------------------------------------------------
 // Functions
@@ -34,6 +37,19 @@ int main(int argc, char * argv[])
     if (application == NULL) return 0;
 
     qDebug("clientVBML");
+
+    //---------------------------------------------------------------------------------------------
+    // Controllers
+    //---------------------------------------------------------------------------------------------
+
+    W_CREATE_CONTROLLER(WControllerPlaylist);
+    W_CREATE_CONTROLLER(WControllerMedia);
+
+    //---------------------------------------------------------------------------------------------
+    // Log
+    //---------------------------------------------------------------------------------------------
+
+    wControllerFile->initMessageHandler();
 
     return application->exec();
 }

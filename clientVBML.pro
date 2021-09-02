@@ -1,6 +1,8 @@
 SK = $$_PRO_FILE_PWD_/../Sky
 
-SK_CORE = $$SK/src/SkCore/src
+SK_CORE  = $$SK/src/SkCore/src
+SK_GUI   = $$SK/src/SkGui/src
+SK_MEDIA = $$SK/src/SkMedia/src
 
 TARGET = clientVBML
 
@@ -27,7 +29,7 @@ contains(QT_MAJOR_VERSION, 4) {
     CONFIG += c++1z
 }
 
-DEFINES += SK_CONSOLE SK_NO_QML SK_CORE_LIBRARY
+DEFINES += SK_CONSOLE SK_NO_QML SK_NO_PLAYER SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY
 
 contains(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_4
@@ -48,10 +50,15 @@ include(src/controllers/controllers.pri)
 include(src/kernel/kernel.pri)
 include(src/io/io.pri)
 include(src/thread/thread.pri)
+include(src/image/image.pri)
+include(src/media/media.pri)
 
 include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
 
 INCLUDEPATH += $$SK/include/SkCore \
+               $$SK/include/SkGui \
+               $$SK/include/SkMedia \
+               $$SK/include
 
 # Windows dependency for ShellExecuteA
 win32-msvc*:LIBS += shell32.lib
