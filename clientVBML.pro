@@ -14,6 +14,8 @@ contains(QT_MAJOR_VERSION, 4) {
     QT += network xml xmlpatterns
 }
 
+QT -= gui
+
 CONFIG += console
 
 macx:CONFIG -= app_bundle
@@ -50,7 +52,6 @@ include(src/controllers/controllers.pri)
 include(src/kernel/kernel.pri)
 include(src/io/io.pri)
 include(src/thread/thread.pri)
-include(src/image/image.pri)
 include(src/media/media.pri)
 
 include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
