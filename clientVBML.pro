@@ -56,10 +56,6 @@ android {
 
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 
-win32:!win32-msvc*:LIBS += -L$$SK/lib -lz
-
-unix:LIBS += -lz
-
 include(src/global/global.pri)
 include(src/controllers/controllers.pri)
 include(src/kernel/kernel.pri)
@@ -77,8 +73,14 @@ INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkBackend \
                $$SK/include
 
+win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
+
+win32:!win32-msvc*:LIBS += -L$$SK/lib -lz
+
 # Windows dependency for ShellExecuteA
 win32-msvc*:LIBS += shell32.lib
+
+unix:LIBS += -lz
 
 OTHER_FILES += 3rdparty.sh \
                configure.sh \
