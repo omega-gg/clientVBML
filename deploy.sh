@@ -97,6 +97,7 @@ if [ $os = "windows" ]; then
     else
         cp "$path"/Qt5Core.dll        deploy
         cp "$path"/Qt5Network.dll     deploy
+        cp "$path"/Qt5Qml.dll         deploy
         cp "$path"/Qt5Xml.dll         deploy
         cp "$path"/Qt5XmlPatterns.dll deploy
     fi
@@ -110,6 +111,7 @@ elif [ $1 = "macOS" ]; then
 
         cp "$path"/QtCore.dylib        deploy
         cp "$path"/QtNetwork.dylib     deploy
+        cp "$path"/QtQml.dylib         deploy
         cp "$path"/QtXml.dylib         deploy
         cp "$path"/QtXmlPatterns.dylib deploy
     fi
@@ -126,6 +128,7 @@ elif [ $1 = "linux" ]; then
     else
         cp "$path"/libQt5Core.so.5        deploy
         cp "$path"/libQt5Network.so.5     deploy
+        cp "$path"/libQt5Qml.so.5         deploy
         cp "$path"/libQt5Xml.so.5         deploy
         cp "$path"/libQt5XmlPatterns.so.5 deploy
     fi
@@ -136,6 +139,7 @@ elif [ $1 = "android" ]; then
 
         cp "$path"/libQt5Core_*.so        deploy
         cp "$path"/libQt5Network_*.so     deploy
+        cp "$path"/libQt5Qml_*.so         deploy
         cp "$path"/libQt5Xml_*.so         deploy
         cp "$path"/libQt5XmlPatterns_*.so deploy
     fi

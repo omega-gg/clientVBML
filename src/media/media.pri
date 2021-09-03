@@ -22,6 +22,8 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_GUI/media/WTabsTrack_p.h \
            $$SK_GUI/media/WTabTrack.h \
            $$SK_GUI/media/WTabTrack_p.h \
+           $$SK_BACKEND/media/WBackendUniversal.h \
+           $$SK_BACKEND/media/WBackendUniversal_p.h \
 
 SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WTrack.cpp \
@@ -34,3 +36,5 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WBookmarkTrack.cpp \
            $$SK_GUI/media/WTabTrack.cpp \
            $$SK_GUI/media/WTabsTrack.cpp \
+           $$SK_BACKEND/media/WBackendUniversal.cpp \
+           $$SK_BACKEND/media/WBackendUniversal_patch.cpp \

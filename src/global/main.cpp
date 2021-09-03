@@ -21,10 +21,16 @@
 //=================================================================================================
 
 // Sk includes
-#include <WCoreApplication>
+#include <WControllerApplication>
 #include <WControllerFile>
 #include <WControllerPlaylist>
 #include <WControllerMedia>
+#include <WCoreApplication>
+
+//-------------------------------------------------------------------------------------------------
+// Static variables
+
+static const QString VERSION = "1.0.0-0";
 
 //-------------------------------------------------------------------------------------------------
 // Functions
@@ -36,20 +42,29 @@ int main(int argc, char * argv[])
 
     if (application == NULL) return 0;
 
-    qDebug("clientVBML");
+    //---------------------------------------------------------------------------------------------
+    // Settings
+
+    QString name = "clientVBML";
+
+    sk->setName(name);
+
+    sk->setVersion(VERSION);
 
     //---------------------------------------------------------------------------------------------
     // Controllers
-    //---------------------------------------------------------------------------------------------
 
     W_CREATE_CONTROLLER(WControllerPlaylist);
     W_CREATE_CONTROLLER(WControllerMedia);
 
     //---------------------------------------------------------------------------------------------
     // Log
-    //---------------------------------------------------------------------------------------------
 
     wControllerFile->initMessageHandler();
+
+    //---------------------------------------------------------------------------------------------
+
+    qDebug("%s %s", name.C_STR, VERSION.C_STR);
 
     return application->exec();
 }
