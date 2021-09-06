@@ -71,7 +71,8 @@ INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkGui \
                $$SK/include/SkMedia \
                $$SK/include/SkBackend \
-               $$SK/include
+               $$SK/include \
+               $$_PRO_FILE_PWD_/include/clientVBML
 
 win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
 

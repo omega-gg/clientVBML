@@ -5,6 +5,14 @@ clientVBML
 
 clientVBML is a [VBML](http://omega.gg/VBML) console application built with Sky kit.<br>
 
+## Usage
+
+    clientVBML <backend> <function> <url>
+
+- backend: The name of the VBML backend.
+- function: The name of the VBML function.
+- url: The url we want to retrieve.
+
 ## Technology
 
 clientVBML is built in C++ with [Sky kit](http://omega.gg/Sky/sources).<br>

@@ -4,7 +4,7 @@
 
     Author: Benjamin Arnaud. <http://bunjee.me> <bunjee@omega.gg>
 
-    This file is part of HelloConsole.
+    This file is part of clientVBML.
 
     - GNU Lesser General Public License Usage:
     This file may be used under the terms of the GNU Lesser General Public License version 3 as
@@ -21,11 +21,10 @@
 //=================================================================================================
 
 // Sk includes
-#include <WControllerApplication>
-#include <WControllerFile>
-#include <WControllerPlaylist>
-#include <WControllerMedia>
 #include <WCoreApplication>
+
+// Application includes
+#include <ControllerCore.h>
 
 //-------------------------------------------------------------------------------------------------
 // Static variables
@@ -42,29 +41,11 @@ int main(int argc, char * argv[])
 
     if (application == NULL) return 0;
 
-    //---------------------------------------------------------------------------------------------
-    // Settings
+    W_CREATE_CONTROLLER(ControllerCore);
 
-    QString name = "clientVBML";
-
-    sk->setName(name);
-
-    sk->setVersion(VERSION);
-
-    //---------------------------------------------------------------------------------------------
-    // Controllers
-
-    W_CREATE_CONTROLLER(WControllerPlaylist);
-    W_CREATE_CONTROLLER(WControllerMedia);
-
-    //---------------------------------------------------------------------------------------------
-    // Log
-
-    wControllerFile->initMessageHandler();
-
-    //---------------------------------------------------------------------------------------------
-
-    qDebug("%s %s", name.C_STR, VERSION.C_STR);
-
-    return application->exec();
+    if (core->run(argc, argv))
+    {
+        return application->exec();
+    }
+    else return -1;
 }

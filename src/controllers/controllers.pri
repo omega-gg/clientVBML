@@ -15,6 +15,7 @@ HEADERS += $$SK_CORE/controllers/WController.h \
            $$SK_GUI/controllers/WControllerPlaylist_p.h \
            $$SK_MEDIA/controllers/WControllerMedia.h \
            $$SK_MEDIA/controllers/WControllerMedia_p.h \
+           src/controllers/ControllerCore.h \
 
 SOURCES += $$SK_CORE/controllers/WController.cpp \
            $$SK_CORE/controllers/WControllerApplication.cpp \
@@ -24,4 +25,5 @@ SOURCES += $$SK_CORE/controllers/WController.cpp \
            $$SK_CORE/controllers/WControllerDownload.cpp \
            $$SK_GUI/controllers/WControllerPlaylist.cpp \
            $$SK_MEDIA/controllers/WControllerMedia.cpp \
+           src/controllers/ControllerCore.cpp \
 
