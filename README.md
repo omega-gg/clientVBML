@@ -4,7 +4,7 @@ clientVBML
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
 clientVBML is a [VBML](http://omega.gg/VBML) console application built with Sky kit.<br>
-Built to retrieve and extract video resources through VBML backends.
+Built to retrieve and extract video resources through VBML [backends](https://github.com/omega-gg/backend).
 
 ## Usage
 
