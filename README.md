@@ -9,7 +9,7 @@ clientVBML is a [VBML](http://omega.gg/VBML) console application built with Sky 
 
     clientVBML <url>
 
-    Where <url> is the resource we want to retrieve and extract.
+    Where <url> is the resource you want to retrieve and extract.
 
 ## Technology
 
