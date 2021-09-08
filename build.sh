@@ -285,6 +285,11 @@ echo ""
 
 cd build
 
+if [ "$2" = "deploy" ]; then
+
+    config="$config deploy"
+fi
+
 if [ $1 = "android" ]; then
 
     $qmake -r -spec $spec "$config" \

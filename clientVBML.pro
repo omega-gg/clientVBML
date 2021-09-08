@@ -54,6 +54,8 @@ android {
     DEFINES += SK_DESKTOP
 }
 
+deploy|android: DEFINES += SK_DEPLOY
+
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 
 include(src/global/global.pri)

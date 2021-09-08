@@ -29,6 +29,10 @@
 // Defines
 #define core ControllerCore::instance()
 
+// Forward declarations
+class WControllerFileReply;
+class WBackendIndex;
+
 class ControllerCore : public WController
 {
     Q_OBJECT
@@ -41,6 +45,23 @@ public: // Interface
 
 private: // Functions
     bool usage();
+
+    void createIndex();
+
+    WControllerFileReply * copyBackends() const;
+
+    void resetBackends() const;
+
+private slots:
+    void onLoaded();
+
+    void onIndexLoaded ();
+    void onIndexUpdated();
+
+private: // Variables
+    QString _path;
+
+    WBackendIndex * _index;
 
 private:
     Q_DISABLE_COPY      (ControllerCore)

@@ -7,11 +7,9 @@ clientVBML is a [VBML](http://omega.gg/VBML) console application built with Sky 
 
 ## Usage
 
-    clientVBML <backend> <function> <url>
+    clientVBML <url>
 
-    backend  : The name of the VBML backend.
-    function : The name of the VBML function.
-    url      : The url we want to retrieve.
+    Where <url> is the resource you want to retrieve and extract.
 
 ## Technology
 

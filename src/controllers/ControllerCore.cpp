@@ -22,11 +22,16 @@
 
 #include "ControllerCore.h"
 
+// Qt includes
+#include <QCoreApplication>
+#include <QDir>
+
 // Sk includes
 #include <WControllerApplication>
 #include <WControllerFile>
 #include <WControllerPlaylist>
 #include <WControllerMedia>
+#include <WBackendIndex>
 
 W_INIT_CONTROLLER(ControllerCore)
 
@@ -34,6 +39,11 @@ W_INIT_CONTROLLER(ControllerCore)
 // Static variables
 
 static const QString CORE_VERSION = "1.0.0-0";
+
+#ifndef SK_DEPLOY
+static const QString PATH_STORAGE = "/storage";
+static const QString PATH_BACKEND = "../../backend";
+#endif
 
 //-------------------------------------------------------------------------------------------------
 // Ctor / dtor
@@ -44,26 +54,15 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Settings
 
-    QString name = "clientVBML";
-
-    sk->setName(name);
+    sk->setName("clientVBML");
 
     sk->setVersion(CORE_VERSION);
 
-    //---------------------------------------------------------------------------------------------
-    // Controllers
-
-    W_CREATE_CONTROLLER(WControllerPlaylist);
-    W_CREATE_CONTROLLER(WControllerMedia);
-
-    //---------------------------------------------------------------------------------------------
-    // Log
-
-    wControllerFile->initMessageHandler();
-
-    //---------------------------------------------------------------------------------------------
-
-    qDebug("%s %s", name.C_STR, CORE_VERSION.C_STR);
+#ifdef SK_DEPLOY
+    _path = QDir::fromNativeSeparators(WControllerFile::pathWritable());
+#else
+    _path = QDir::currentPath() + PATH_STORAGE;
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -72,12 +71,52 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ bool ControllerCore::run(int & argc, char ** argv)
 {
-    if (argc < 3)
+    //---------------------------------------------------------------------------------------------
+    // Log
+
+    wControllerFile->initMessageHandler();
+
+    //---------------------------------------------------------------------------------------------
+    // Usage
+
+    qDebug("clientVBML %s", sk->version().C_STR);
+
+    if (argc < 2)
     {
         usage();
 
         return false;
     }
+
+    QString url = argv[1];
+
+    qDebug("url: %s", url.C_STR);
+
+    //---------------------------------------------------------------------------------------------
+    // Controllers
+
+    W_CREATE_CONTROLLER(WControllerPlaylist);
+    W_CREATE_CONTROLLER(WControllerMedia);
+
+    //---------------------------------------------------------------------------------------------
+    // Backend index
+
+    QString path = _path + "/backend";
+
+    if (QFile::exists(path) == false)
+    {
+        if (QDir().mkpath(path) == false)
+        {
+             qWarning("ControllerCore::run: Failed to create folder %s.", path.C_STR);
+
+             return false;
+        }
+
+        WControllerFileReply * reply = copyBackends();
+
+        connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
+    }
+    else createIndex();
 
     return true;
 }
@@ -91,4 +130,67 @@ bool ControllerCore::usage()
     qDebug("Usage: %s <backend> <function> <url>", sk->name().C_STR);
 
     return false;
+}
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::createIndex()
+{
+    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend"));
+
+    connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+}
+
+//-------------------------------------------------------------------------------------------------
+
+WControllerFileReply * ControllerCore::copyBackends() const
+{
+#ifdef SK_DEPLOY
+#ifdef Q_OS_ANDROID
+    return WControllerPlaylist::copyBackends("assets:/backend", _path + "/backend/");
+#else
+    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath("backend"),
+                                             _path + "/backend/");
+#endif
+#else
+    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath(PATH_BACKEND),
+                                             _path + "/backend/");
+#endif
+}
+
+//-------------------------------------------------------------------------------------------------
+// Private slots
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::onLoaded()
+{
+    createIndex();
+}
+
+void ControllerCore::onIndexLoaded()
+{
+    disconnect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+
+    connect(_index, SIGNAL(updated()), this, SLOT(onIndexUpdated()));
+
+#if defined(SK_BACKEND_LOCAL) && defined(SK_DEPLOY) == false
+    qDebug("INDEX UPDATING!");
+
+    // NOTE: This makes sure that we have the latest local vbml loaded.
+    WControllerFileReply * reply = copyBackends();
+
+    connect(reply, SIGNAL(actionComplete(bool)), _index, SLOT(reload()));
+
+    // NOTE: We are mapping the 'loaded' signal on the 'onIndexUpdated' slot to make sure we get
+    //       notified when the index is reloaded.
+    connect(_index, SIGNAL(loaded()), this, SLOT(onIndexUpdated()));
+#else
+    _index->update();
+#endif
+}
+
+void ControllerCore::onIndexUpdated()
+{
+    qDebug("INDEX UPDATED!");
+
+    QCoreApplication::exit(0);
 }
