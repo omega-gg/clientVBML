@@ -47,5 +47,5 @@ int main(int argc, char * argv[])
     {
         return application->exec();
     }
-    else return -1;
+    else return 1;
 }

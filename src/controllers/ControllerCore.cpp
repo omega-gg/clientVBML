@@ -32,6 +32,7 @@
 #include <WControllerPlaylist>
 #include <WControllerMedia>
 #include <WBackendIndex>
+#include <WPlaylist>
 
 W_INIT_CONTROLLER(ControllerCore)
 
@@ -51,6 +52,11 @@ static const QString PATH_BACKEND = "../../backend";
 
 ControllerCore::ControllerCore() : WController()
 {
+    _media    = NULL;
+    _playlist = NULL;
+
+    _error = false;
+
     //---------------------------------------------------------------------------------------------
     // Settings
 
@@ -81,16 +87,16 @@ ControllerCore::ControllerCore() : WController()
 
     qDebug("clientVBML %s", sk->version().C_STR);
 
-    if (argc < 2)
+    if (argc != 2)
     {
         usage();
 
         return false;
     }
 
-    QString url = argv[1];
+    _url = argv[1];
 
-    qDebug("url: %s", url.C_STR);
+    qDebug("url: %s", _url.C_STR);
 
     //---------------------------------------------------------------------------------------------
     // Controllers
@@ -127,7 +133,7 @@ ControllerCore::ControllerCore() : WController()
 
 bool ControllerCore::usage()
 {
-    qDebug("Usage: %s <backend> <function> <url>", sk->name().C_STR);
+    qDebug("Usage: clientVBML <url>");
 
     return false;
 }
@@ -158,6 +164,14 @@ WControllerFileReply * ControllerCore::copyBackends() const
 }
 
 //-------------------------------------------------------------------------------------------------
+
+void ControllerCore::writeOutput()
+{
+    if (_error) QCoreApplication::exit(1);
+    else        QCoreApplication::exit(0);
+}
+
+//-------------------------------------------------------------------------------------------------
 // Private slots
 //-------------------------------------------------------------------------------------------------
 
@@ -173,15 +187,13 @@ void ControllerCore::onIndexLoaded()
     connect(_index, SIGNAL(updated()), this, SLOT(onIndexUpdated()));
 
 #if defined(SK_BACKEND_LOCAL) && defined(SK_DEPLOY) == false
-    qDebug("INDEX UPDATING!");
-
     // NOTE: This makes sure that we have the latest local vbml loaded.
     WControllerFileReply * reply = copyBackends();
 
     connect(reply, SIGNAL(actionComplete(bool)), _index, SLOT(reload()));
 
-    // NOTE: We are mapping the 'loaded' signal on the 'onIndexUpdated' slot to make sure we get
-    //       notified when the index is reloaded.
+    // NOTE: We are mapping the 'loaded' signal on 'onIndexUpdated' to make sure we get notified
+    //       when the index is reloaded.
     connect(_index, SIGNAL(loaded()), this, SLOT(onIndexUpdated()));
 #else
     _index->update();
@@ -190,7 +202,106 @@ void ControllerCore::onIndexLoaded()
 
 void ControllerCore::onIndexUpdated()
 {
-    qDebug("INDEX UPDATED!");
+    // NOTE: We don't want this slot to be called again.
+    disconnect(_index, 0, this, SLOT(onIndexUpdated()));
 
-    QCoreApplication::exit(0);
+    WBackendNet * backend = wControllerPlaylist->backendFromUrl(_url);
+
+    if (backend == NULL)
+    {
+        qWarning("ControllerCore::onIndexUpdated: Cannot find a backend for %s.", _url.C_STR);
+
+        QCoreApplication::exit(1);
+    }
+
+    bool exit = true;
+
+    QString id = backend->getTrackId(_url);
+
+    if (id.isEmpty() == false)
+    {
+        qDebug("TRACK DETECTED");
+
+        exit = false;
+
+        _media = wControllerMedia->getMedia(_url);
+
+        connect(_media, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMedia()));
+
+        _playlist = new WPlaylist;
+
+        connect(_playlist, SIGNAL(trackQueryCompleted()), this, SLOT(onTrack()));
+
+        _playlist->addSource(_url);
+
+        _playlist->loadTrack(0);
+    }
+
+    WBackendNetPlaylistInfo info = backend->getPlaylistInfo(_url);
+
+    if (info.isValid())
+    {
+        qDebug("PLAYLIST DETECTED");
+
+        exit = false;
+
+        _playlist = new WPlaylist;
+
+        connect(_playlist, SIGNAL(queryCompleted()), this, SLOT(onPlaylist()));
+
+        _playlist->loadSource(_url);
+    }
+
+    if (exit) QCoreApplication::exit(0);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::onMedia()
+{
+    qDebug("MEDIA LOADED");
+
+    // NOTE: If 'medias' are empty then something is wrong.
+    if (_media->medias().isEmpty())
+    {
+        _error = true;
+    }
+
+    _media = NULL;
+
+    if (_playlist == NULL) // Maybe our 'track' is still loading.
+    {
+        writeOutput();
+    }
+}
+
+void ControllerCore::onTrack()
+{
+    qDebug("TRACK LOADED");
+
+    // NOTE: If the track 'title' is empty then something is wrong.
+    if (_playlist->trackTitle(0).isEmpty())
+    {
+        _error = true;
+    }
+
+    _playlist = NULL;
+
+    if (_media == NULL) // Maybe our 'media' is still loading.
+    {
+        writeOutput();
+    }
+}
+
+void ControllerCore::onPlaylist()
+{
+    qDebug("PLAYLIST LOADED");
+
+    // NOTE: If the playlist is empty then something is wrong.
+    if (_playlist->isEmpty())
+    {
+        _error = true;
+    }
+
+    writeOutput();
 }
