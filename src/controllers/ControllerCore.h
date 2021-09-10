@@ -74,6 +74,8 @@ private: // Variables
     WMediaReply * _media;
     WPlaylist   * _playlist;
 
+    QString _output;
+
     bool _error;
 
 private:

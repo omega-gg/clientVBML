@@ -167,6 +167,8 @@ WControllerFileReply * ControllerCore::copyBackends() const
 
 void ControllerCore::writeOutput()
 {
+    qDebug(_output.C_STR);
+
     if (_error) QCoreApplication::exit(1);
     else        QCoreApplication::exit(0);
 }
@@ -261,11 +263,12 @@ void ControllerCore::onMedia()
 {
     qDebug("MEDIA LOADED");
 
-    // NOTE: If 'medias' are empty then something is wrong.
     if (_media->medias().isEmpty())
     {
+        // NOTE: If 'medias' are empty then something is wrong.
         _error = true;
     }
+    else _output.append("\n<VBML>\n" + _media->toVbml() + "</VBML>");
 
     _media = NULL;
 
@@ -279,11 +282,12 @@ void ControllerCore::onTrack()
 {
     qDebug("TRACK LOADED");
 
-    // NOTE: If the track 'title' is empty then something is wrong.
     if (_playlist->trackTitle(0).isEmpty())
     {
+        // NOTE: If the track 'title' is empty then something is wrong.
         _error = true;
     }
+    else _output.prepend("<VBML>\n" + _playlist->trackVbml(0) + "</VBML>");
 
     _playlist = NULL;
 
