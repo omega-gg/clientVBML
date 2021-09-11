@@ -46,13 +46,15 @@ public: // Interface
     Q_INVOKABLE bool run(int & argc, char ** argv);
 
 private: // Functions
-    bool usage();
+    bool usage() const;
 
     void createIndex();
 
     WControllerFileReply * copyBackends() const;
 
-    void writeOutput();
+    void writeOutput() const;
+
+    QString vbml(const QString & content) const;
 
 private slots:
     void onLoaded();

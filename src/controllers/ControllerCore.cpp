@@ -25,6 +25,7 @@
 // Qt includes
 #include <QCoreApplication>
 #include <QDir>
+#include <QTextStream>
 
 // Sk includes
 #include <WControllerApplication>
@@ -45,6 +46,8 @@ static const QString CORE_VERSION = "1.0.0-0";
 static const QString PATH_STORAGE = "/storage";
 static const QString PATH_BACKEND = "../../backend";
 #endif
+
+static const QString PATH_OUTPUT = "output.vbml";
 
 //-------------------------------------------------------------------------------------------------
 // Ctor / dtor
@@ -131,7 +134,7 @@ ControllerCore::ControllerCore() : WController()
 // Functions private
 //-------------------------------------------------------------------------------------------------
 
-bool ControllerCore::usage()
+bool ControllerCore::usage() const
 {
     qDebug("Usage: clientVBML <url>");
 
@@ -165,12 +168,28 @@ WControllerFileReply * ControllerCore::copyBackends() const
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::writeOutput()
+void ControllerCore::writeOutput() const
 {
-    qDebug(_output.C_STR);
+    // NOTE: We are using the '%s' option otherwise we get random replacements when we have a '%1'.
+    qDebug("%s", _output.C_STR);
+
+    QFile file(PATH_OUTPUT);
+
+    file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+
+    QTextStream stream(&file);
+
+    stream << _output;
 
     if (_error) QCoreApplication::exit(1);
     else        QCoreApplication::exit(0);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+QString ControllerCore::vbml(const QString & content) const
+{
+    return "[VBML]\n" + content + "[/VBML]\n";
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -214,6 +233,9 @@ void ControllerCore::onIndexUpdated()
         qWarning("ControllerCore::onIndexUpdated: Cannot find a backend for %s.", _url.C_STR);
 
         QCoreApplication::exit(1);
+
+        // NOTE: We need to return after 'exit'.
+        return;
     }
 
     bool exit = true;
@@ -263,12 +285,12 @@ void ControllerCore::onMedia()
 {
     qDebug("MEDIA LOADED");
 
+    // NOTE: If 'medias' are empty then something is wrong.
     if (_media->medias().isEmpty())
     {
-        // NOTE: If 'medias' are empty then something is wrong.
         _error = true;
     }
-    else _output.append("\n<VBML>\n" + _media->toVbml() + "</VBML>");
+    else _output.append('\n' + vbml(_media->toVbml()));
 
     _media = NULL;
 
@@ -282,12 +304,12 @@ void ControllerCore::onTrack()
 {
     qDebug("TRACK LOADED");
 
+    // NOTE: If the track 'title' is empty then something is wrong.
     if (_playlist->trackTitle(0).isEmpty())
     {
-        // NOTE: If the track 'title' is empty then something is wrong.
         _error = true;
     }
-    else _output.prepend("<VBML>\n" + _playlist->trackVbml(0) + "</VBML>");
+    else _output.prepend(vbml(_playlist->trackVbml(0)));
 
     _playlist = NULL;
 
@@ -306,6 +328,7 @@ void ControllerCore::onPlaylist()
     {
         _error = true;
     }
+    else _output.prepend(vbml(_playlist->toVbml()));
 
     writeOutput();
 }

@@ -94,3 +94,5 @@ OTHER_FILES += 3rdparty.sh \
                LICENSE.md \
                AUTHORS.md \
                .azure-pipelines.yml \
+               test/all.sh \
+               test/youtube.sh \
