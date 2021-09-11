@@ -34,27 +34,40 @@ On Windows:
 Recommended:
 - [Qt Creator](http://download.qt.io/official_releases/qtcreator) 3.6.0 or later.
 
-## 3rdparty
+## Quickstart
 
-You can install third party libraries with:
+You can configure and build MotionBox with a single line:
+
+    sh build.sh <win32 | win64 | macOS | linux | android> all
+
+For instance you would do that for Windows 64 bit:
+
+    * open Git Bash *
+    git clone https://github.com/omega-gg/MotionBox.git
+    cd MotionBox
+    sh build.sh win64 all
+
+That's a convenient way to configure and build everything the first time.
+
+Note: This will create the 3rdparty and Sky folder in the parent directory.
+
+## Building
+
+Alternatively, you can run each step of the build yourself by calling the following scripts:
+
+Install the dependencies:
 
     sh 3rdparty.sh <win32 | win64 | macOS | linux | android> [all]
 
-## Configure
-
-You can configure clientVBML with:
+Configure the build:
 
     sh configure.sh <win32 | win64 | macOS | linux | android> [sky | clean]
 
-## Build
-
-You can build clientVBML with:
+Build the application:
 
     sh build.sh <win32 | win64 | macOS | linux | android> [all | deploy | clean]
 
-## Deploy
-
-You can deploy clientVBML with:
+Deploy the application and its dependencies:
 
     sh deploy.sh <win32 | win64 | macOS | linux | android> [clean]
 
