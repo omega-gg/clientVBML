@@ -1,5 +1,6 @@
 #!/bin/sh
-set -e
+# NOTE: We don't want to quit this script when a backend is failing.
+#set -e
 
 #--------------------------------------------------------------------------------------------------
 # Requests
