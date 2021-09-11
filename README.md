@@ -36,15 +36,15 @@ Recommended:
 
 ## Quickstart
 
-You can configure and build MotionBox with a single line:
+You can configure and build clientVBML with a single line:
 
     sh build.sh <win32 | win64 | macOS | linux | android> all
 
 For instance you would do that for Windows 64 bit:
 
     * open Git Bash *
-    git clone https://github.com/omega-gg/MotionBox.git
-    cd MotionBox
+    git clone https://github.com/omega-gg/clientVBML.git
+    cd clientVBML
     sh build.sh win64 all
 
 That's a convenient way to configure and build everything the first time.
