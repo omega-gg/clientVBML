@@ -35,8 +35,8 @@ jobs:
       sh build.sh win64 all
       cd deploy
       7z a ../clientVBML.zip *
-      cd ../bin
-      sh ../test/all.sh
+      cp ../test/*.sh .
+      sh all.sh
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-win64-qt5
 
