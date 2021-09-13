@@ -189,7 +189,7 @@ void ControllerCore::writeOutput() const
 
 QString ControllerCore::vbml(const QString & content) const
 {
-    return "[VBML]\n" + content + "[/VBML]\n";
+    return "[VBML]\n" + content + "[/VBML]";
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -205,20 +205,16 @@ void ControllerCore::onIndexLoaded()
 {
     disconnect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
 
-    connect(_index, SIGNAL(updated()), this, SLOT(onIndexUpdated()));
-
 #if defined(SK_BACKEND_LOCAL) && defined(SK_DEPLOY) == false
     // NOTE: This makes sure that we have the latest local vbml loaded.
     WControllerFileReply * reply = copyBackends();
 
     connect(reply, SIGNAL(actionComplete(bool)), _index, SLOT(reload()));
-
-    // NOTE: We are mapping the 'loaded' signal on 'onIndexUpdated' to make sure we get notified
-    //       when the index is reloaded.
-    connect(_index, SIGNAL(loaded()), this, SLOT(onIndexUpdated()));
 #else
     _index->update();
 #endif
+
+    connect(_index, SIGNAL(loaded()), this, SLOT(onIndexUpdated()));
 }
 
 void ControllerCore::onIndexUpdated()

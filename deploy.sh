@@ -9,6 +9,8 @@ target="clientVBML"
 
 Sky="../Sky"
 
+backend="../backend"
+
 #--------------------------------------------------------------------------------------------------
 # environment
 
@@ -193,4 +195,19 @@ elif [ $1 = "linux" ]; then
 elif [ $1 = "android" ]; then
 
     cp bin/lib$target* deploy
+fi
+
+#--------------------------------------------------------------------------------------------------
+# backend
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 != "android" ]; then
+
+    echo "COPYING backend"
+
+    mkdir -p deploy/backend/cover
+
+    cp "$backend"/cover/* deploy/backend/cover
+
+    cp "$backend"/*.vbml deploy/backend
 fi
