@@ -23,20 +23,18 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- youtube ---"
+echo "--- dailymotion ---"
 echo ""
 
-test "TRACK" "https://www.youtube.com/watch?v=wOMwO5T3yT4"
+test "TRACK" "https://www.dailymotion.com/video/x83nkms"
 
-test "PLAYLIST" "https://www.youtube.com/channel/UCZyXa4H06Ws3Pwom9cYEdDA"
+test "PLAYLIST" "https://www.dailymotion.com/TechnoOverlfload"
 
-test "RELATED" "vbml://run?backend=youtube&method=related&label=tracks&q=wOMwO5T3yT4"
+test "RELATED" "vbml://run?backend=dailymotion&method=related&label=tracks&q=x83nkms"
 
-test "SEARCH TRACKS" "vbml://run?backend=youtube&method=search&label=tracks&q=chillwave"
+test "SEARCH TRACKS" "vbml://run?backend=dailymotion&method=search&label=tracks&q=chillwave"
 
-test "SEARCH CHANNELS" "vbml://run?backend=youtube&method=search&label=channels&q=chillwave"
+# NOTE: No result for 'chillwave'.
+test "SEARCH CHANNELS" "vbml://run?backend=dailymotion&method=search&label=channels&q=synthwave"
 
-test "SEARCH PLAYLISTS" "vbml://run?backend=youtube&method=search&label=playlists&q=chillwave"
-
-# NOTE: This one might break more often so we put it at the end.
-test "TRACK LOCKED" "https://www.youtube.com/watch?v=tQ0yjYUFKAE"
+test "SEARCH PLAYLISTS" "vbml://run?backend=dailymotion&method=search&label=playlists&q=chillwave"

@@ -23,20 +23,19 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- youtube ---"
+echo "--- vimeo ---"
 echo ""
 
-test "TRACK" "https://www.youtube.com/watch?v=wOMwO5T3yT4"
+test "TRACK" "https://vimeo.com/370892294"
 
-test "PLAYLIST" "https://www.youtube.com/channel/UCZyXa4H06Ws3Pwom9cYEdDA"
+test "PLAYLIST" "https://vimeo.com/dalz1el"
 
-test "RELATED" "vbml://run?backend=youtube&method=related&label=tracks&q=wOMwO5T3yT4"
+test "RELATED" "vbml://run?backend=vimeo&method=related&label=tracks&q=370892294"
 
-test "SEARCH TRACKS" "vbml://run?backend=youtube&method=search&label=tracks&q=chillwave"
+test "SEARCH TRACKS" "vbml://run?backend=vimeo&method=search&label=tracks&q=chillwave"
 
-test "SEARCH CHANNELS" "vbml://run?backend=youtube&method=search&label=channels&q=chillwave"
+test "SEARCH PEOPLE" "vbml://run?backend=vimeo&method=search&label=people&q=chillwave"
 
-test "SEARCH PLAYLISTS" "vbml://run?backend=youtube&method=search&label=playlists&q=chillwave"
+test "SEARCH CHANNELS" "vbml://run?backend=vimeo&method=search&label=channels&q=chillwave"
 
-# NOTE: This one might break more often so we put it at the end.
-test "TRACK LOCKED" "https://www.youtube.com/watch?v=tQ0yjYUFKAE"
+test "SEARCH PLAYLISTS" "vbml://run?backend=vimeo&method=search&label=playlists&q=chillwave"

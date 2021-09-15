@@ -94,5 +94,13 @@ OTHER_FILES += 3rdparty.sh \
                LICENSE.md \
                AUTHORS.md \
                .azure-pipelines.yml \
+               test/copy.sh \
                test/all.sh \
+               test/duckduckgo.sh \
                test/youtube.sh \
+               test/dailymotion.sh \
+               test/vimeo.sh \
+               test/soundcloud.sh \
+               test/tmdb.sh \
+               test/lastfm.sh \
+               test/opensubtitles.sh \

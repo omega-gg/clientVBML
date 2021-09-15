@@ -23,20 +23,17 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- youtube ---"
+echo "--- soundcloud ---"
 echo ""
 
-test "TRACK" "https://www.youtube.com/watch?v=wOMwO5T3yT4"
+test "TRACK" "https://soundcloud.com/bigwild/sylvan-esso-hey-mami-big-wild-remix"
 
-test "PLAYLIST" "https://www.youtube.com/channel/UCZyXa4H06Ws3Pwom9cYEdDA"
+test "PLAYLIST" "https://soundcloud.com/bigwild"
 
-test "RELATED" "vbml://run?backend=youtube&method=related&label=tracks&q=wOMwO5T3yT4"
+test "RELATED" "vbml://run?backend=soundcloud&method=related&label=tracks&q=bigwild/sylvan-esso-hey-mami-big-wild-remix"
 
-test "SEARCH TRACKS" "vbml://run?backend=youtube&method=search&label=tracks&q=chillwave"
+test "SEARCH TRACKS" "vbml://run?backend=soundcloud&method=search&label=tracks&q=chillwave"
 
-test "SEARCH CHANNELS" "vbml://run?backend=youtube&method=search&label=channels&q=chillwave"
+test "SEARCH PEOPLE" "vbml://run?backend=soundcloud&method=search&label=people&q=chillwave"
 
-test "SEARCH PLAYLISTS" "vbml://run?backend=youtube&method=search&label=playlists&q=chillwave"
-
-# NOTE: This one might break more often so we put it at the end.
-test "TRACK LOCKED" "https://www.youtube.com/watch?v=tQ0yjYUFKAE"
+test "SEARCH PLAYLISTS" "vbml://run?backend=soundcloud&method=search&label=playlists&q=chillwave"

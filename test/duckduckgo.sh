@@ -23,20 +23,13 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- youtube ---"
+echo "--- duckduckgo ---"
 echo ""
 
-test "TRACK" "https://www.youtube.com/watch?v=wOMwO5T3yT4"
+test "SEARCH URLS" "vbml://run?backend=duckduckgo&method=search&label=urls&q=site:https://youtube.com chillwave"
 
-test "PLAYLIST" "https://www.youtube.com/channel/UCZyXa4H06Ws3Pwom9cYEdDA"
+test "SEARCH SITE" "vbml://run?backend=duckduckgo&method=search&label=site&q=chillwave"
 
-test "RELATED" "vbml://run?backend=youtube&method=related&label=tracks&q=wOMwO5T3yT4"
+test "SEARCH TRACKS" "vbml://run?backend=duckduckgo&method=search&label=tracks&q=chillwave"
 
-test "SEARCH TRACKS" "vbml://run?backend=youtube&method=search&label=tracks&q=chillwave"
-
-test "SEARCH CHANNELS" "vbml://run?backend=youtube&method=search&label=channels&q=chillwave"
-
-test "SEARCH PLAYLISTS" "vbml://run?backend=youtube&method=search&label=playlists&q=chillwave"
-
-# NOTE: This one might break more often so we put it at the end.
-test "TRACK LOCKED" "https://www.youtube.com/watch?v=tQ0yjYUFKAE"
+test "SEARCH PLAYLISTS" "vbml://run?backend=duckduckgo&method=search&label=playlists&q=chillwave"

@@ -30,6 +30,7 @@
 // Sk includes
 #include <WControllerApplication>
 #include <WControllerFile>
+#include <WControllerNetwork>
 #include <WControllerPlaylist>
 #include <WControllerMedia>
 #include <WBackendIndex>
@@ -57,8 +58,7 @@ ControllerCore::ControllerCore() : WController()
 {
     _media    = NULL;
     _playlist = NULL;
-
-    _error = false;
+    _folder   = NULL;
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -168,8 +168,42 @@ WControllerFileReply * ControllerCore::copyBackends() const
 
 //-------------------------------------------------------------------------------------------------
 
+void ControllerCore::loadTrack(const QString & url)
+{
+    _playlist = new WPlaylist;
+
+    connect(_playlist, SIGNAL(trackQueryCompleted()), this, SLOT(onTrack()));
+
+    _playlist->addSource(url);
+
+    _playlist->loadTrack(0);
+}
+
+void ControllerCore::loadPlaylist(const QString & url)
+{
+    _playlist = new WPlaylist;
+
+    connect(_playlist, SIGNAL(queryCompleted()), this, SLOT(onPlaylist()));
+
+    _playlist->loadSource(url);
+}
+
+//-------------------------------------------------------------------------------------------------
+
 void ControllerCore::writeOutput() const
 {
+    // NOTE: Maybe another query is still loading.
+    if (_media || _playlist || _folder) return;
+
+    if (_output.isEmpty())
+    {
+        // NOTE: If the output is empty we return an erorr.
+        QCoreApplication::exit(1);
+
+        // NOTE: We need to return after 'exit'.
+        return;
+    }
+
     // NOTE: We are using the '%s' option otherwise we get random replacements when we have a '%1'.
     qDebug("%s", _output.C_STR);
 
@@ -181,8 +215,7 @@ void ControllerCore::writeOutput() const
 
     stream << _output;
 
-    if (_error) QCoreApplication::exit(1);
-    else        QCoreApplication::exit(0);
+    QCoreApplication::exit(0);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -236,40 +269,73 @@ void ControllerCore::onIndexUpdated()
 
     bool exit = true;
 
-    QString id = backend->getTrackId(_url);
-
-    if (id.isEmpty() == false)
+    if (WBackendNet::checkQuery(_url))
     {
-        qDebug("TRACK DETECTED");
+        qDebug("QUERY DETECTED");
 
-        exit = false;
+        QUrl source(_url);
 
-        _media = wControllerMedia->getMedia(_url);
+        WLibraryItem::Type type = backend->typeFromQuery(_url);
 
-        connect(_media, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMedia()));
+        if (type == WLibraryItem::Folder)
+        {
+            qDebug("FOLDER DETECTED");
 
-        _playlist = new WPlaylist;
+            exit = false;
 
-        connect(_playlist, SIGNAL(trackQueryCompleted()), this, SLOT(onTrack()));
+            _folder = new WLibraryFolder;
 
-        _playlist->addSource(_url);
+            connect(_folder, SIGNAL(queryCompleted()), this, SLOT(onFolder()));
 
-        _playlist->loadTrack(0);
+            _folder->loadSource(_url);
+        }
+        else if (type == WLibraryItem::Playlist)
+        {
+            qDebug("PLAYLIST DETECTED");
+
+            exit = false;
+
+            loadPlaylist(_url);
+        }
+
+        QString method = WControllerNetwork::extractUrlValue(_url, "method");
+
+        if (method == "cover")
+        {
+            qDebug("COVER DETECTED");
+
+            exit = false;
+
+            loadTrack(_url);
+        }
     }
-
-    WBackendNetPlaylistInfo info = backend->getPlaylistInfo(_url);
-
-    if (info.isValid())
+    else
     {
-        qDebug("PLAYLIST DETECTED");
+        QString id = backend->getTrackId(_url);
 
-        exit = false;
+        if (id.isEmpty() == false)
+        {
+            qDebug("TRACK DETECTED");
 
-        _playlist = new WPlaylist;
+            exit = false;
 
-        connect(_playlist, SIGNAL(queryCompleted()), this, SLOT(onPlaylist()));
+            _media = wControllerMedia->getMedia(_url);
 
-        _playlist->loadSource(_url);
+            connect(_media, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMedia()));
+
+            loadTrack(_url);
+        }
+
+        WBackendNetPlaylistInfo info = backend->getPlaylistInfo(_url);
+
+        if (info.isValid())
+        {
+            qDebug("PLAYLIST DETECTED");
+
+            exit = false;
+
+            loadPlaylist(_url);
+        }
     }
 
     if (exit) QCoreApplication::exit(0);
@@ -281,50 +347,66 @@ void ControllerCore::onMedia()
 {
     qDebug("MEDIA LOADED");
 
-    // NOTE: If 'medias' are empty then something is wrong.
-    if (_media->medias().isEmpty())
+    if (_media->medias().isEmpty() == false)
     {
-        _error = true;
+        _output.append('\n' + vbml(_media->toVbml()));
     }
-    else _output.append('\n' + vbml(_media->toVbml()));
 
     _media = NULL;
 
-    if (_playlist == NULL) // Maybe our 'track' is still loading.
-    {
-        writeOutput();
-    }
+    writeOutput();
 }
 
 void ControllerCore::onTrack()
 {
     qDebug("TRACK LOADED");
 
-    // NOTE: If the track 'title' is empty then something is wrong.
-    if (_playlist->trackTitle(0).isEmpty())
+    if (_playlist->trackTitle(0).isEmpty() == false
+        ||
+        _playlist->trackCover(0).isEmpty() == false)
     {
-        _error = true;
+        // NOTE: We want the track VBML to appear first so we prepend it.
+        _output.prepend(vbml(_playlist->trackVbml(0)));
     }
-    else _output.prepend(vbml(_playlist->trackVbml(0)));
+
+    // NOTE: Maybe we are still loading another query.
+    if (_playlist->queryIsLoading()) return;
 
     _playlist = NULL;
 
-    if (_media == NULL) // Maybe our 'media' is still loading.
-    {
-        writeOutput();
-    }
+    writeOutput();
 }
 
 void ControllerCore::onPlaylist()
 {
     qDebug("PLAYLIST LOADED");
 
-    // NOTE: If the playlist is empty then something is wrong.
-    if (_playlist->isEmpty())
+    if (_playlist->isEmpty() == false)
     {
-        _error = true;
+        _output.append(vbml(_playlist->toVbml()));
     }
-    else _output.prepend(vbml(_playlist->toVbml()));
+
+    // NOTE: Maybe we are still loading another query.
+    if (_playlist->queryIsLoading()) return;
+
+    _playlist = NULL;
+
+    writeOutput();
+}
+
+void ControllerCore::onFolder()
+{
+    qDebug("FOLDER LOADED");
+
+    if (_folder->isEmpty() == false)
+    {
+        _output.append(vbml(_folder->toVbml()));
+    }
+
+    // NOTE: Maybe we are still loading another query.
+    if (_folder->queryIsLoading()) return;
+
+    _folder = NULL;
 
     writeOutput();
 }
