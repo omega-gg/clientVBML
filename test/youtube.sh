@@ -28,6 +28,8 @@ echo ""
 
 test "TRACK" "https://www.youtube.com/watch?v=wOMwO5T3yT4"
 
+test "TRACK LIVE" "https://www.youtube.com/watch?v=xxgxkjV70Vc"
+
 test "PLAYLIST" "https://www.youtube.com/channel/UCZyXa4H06Ws3Pwom9cYEdDA"
 
 test "RELATED" "vbml://run?backend=youtube&method=related&label=tracks&q=wOMwO5T3yT4"
