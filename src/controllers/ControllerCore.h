@@ -53,8 +53,8 @@ private: // Functions
 
     WControllerFileReply * copyBackends() const;
 
-    void loadTrack   (const QString & url);
-    void loadPlaylist(const QString & url);
+    bool loadTrack   (const QString & url);
+    bool loadPlaylist(const QString & url);
 
     void writeOutput() const;
 

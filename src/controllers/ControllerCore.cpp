@@ -168,7 +168,7 @@ WControllerFileReply * ControllerCore::copyBackends() const
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::loadTrack(const QString & url)
+bool ControllerCore::loadTrack(const QString & url)
 {
     _playlist = new WPlaylist;
 
@@ -177,15 +177,19 @@ void ControllerCore::loadTrack(const QString & url)
     _playlist->addSource(url);
 
     _playlist->loadTrack(0);
+
+    return _playlist->trackIsLoading(0);
 }
 
-void ControllerCore::loadPlaylist(const QString & url)
+bool ControllerCore::loadPlaylist(const QString & url)
 {
     _playlist = new WPlaylist;
 
     connect(_playlist, SIGNAL(queryCompleted()), this, SLOT(onPlaylist()));
 
     _playlist->loadSource(url);
+
+    return _playlist->queryIsLoading();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -267,7 +271,7 @@ void ControllerCore::onIndexUpdated()
         return;
     }
 
-    bool exit = true;
+    bool result = false;
 
     if (WBackendNet::checkQuery(_url))
     {
@@ -281,21 +285,19 @@ void ControllerCore::onIndexUpdated()
         {
             qDebug("FOLDER DETECTED");
 
-            exit = false;
-
             _folder = new WLibraryFolder;
 
             connect(_folder, SIGNAL(queryCompleted()), this, SLOT(onFolder()));
 
             _folder->loadSource(_url);
+
+            result = _folder->queryIsLoading();
         }
         else if (type == WLibraryItem::Playlist)
         {
             qDebug("PLAYLIST DETECTED");
 
-            exit = false;
-
-            loadPlaylist(_url);
+            result = loadPlaylist(_url);
         }
 
         QString method = WControllerNetwork::extractUrlValue(_url, "method");
@@ -304,9 +306,7 @@ void ControllerCore::onIndexUpdated()
         {
             qDebug("COVER DETECTED");
 
-            exit = false;
-
-            loadTrack(_url);
+            result = loadTrack(_url);
         }
     }
     else
@@ -317,13 +317,11 @@ void ControllerCore::onIndexUpdated()
         {
             qDebug("TRACK DETECTED");
 
-            exit = false;
-
             _media = wControllerMedia->getMedia(_url);
 
             connect(_media, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMedia()));
 
-            loadTrack(_url);
+            result = loadTrack(_url);
         }
 
         WBackendNetPlaylistInfo info = backend->getPlaylistInfo(_url);
@@ -332,13 +330,14 @@ void ControllerCore::onIndexUpdated()
         {
             qDebug("PLAYLIST DETECTED");
 
-            exit = false;
-
-            loadPlaylist(_url);
+            result = loadPlaylist(_url);
         }
     }
 
-    if (exit) QCoreApplication::exit(0);
+    if (result == false)
+    {
+        QCoreApplication::exit(0);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
