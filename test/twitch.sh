@@ -26,4 +26,6 @@ test()
 echo "--- twitch ---"
 echo ""
 
-test "CHANNEL" "https://www.twitch.tv/esl_sc2"
+test "TRACK" "https://www.twitch.tv/videos/1171797190"
+
+test "TRACK LIVE" "https://www.twitch.tv/esl_sc2"
