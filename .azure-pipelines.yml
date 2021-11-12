@@ -8,7 +8,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh environment.sh mingw qt4
+      sh environment.sh qt4
       sh build.sh win32 all
       cd deploy
       7z a ../clientVBML.zip *
@@ -47,7 +47,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh environment.sh msvc qt5
+      sh environment.sh msvc
       sh build.sh win32 all
       cd deploy
       7z a ../clientVBML.zip *
@@ -59,7 +59,7 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      sh environment.sh msvc qt5
+      sh environment.sh msvc
       sh build.sh win64 all
       cd deploy
       7z a ../clientVBML.zip *
@@ -94,7 +94,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /clientVBML;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
-                                     sh environment.sh mingw qt4;
+                                     sh environment.sh qt4;
                                      sh build.sh linux all;
                                      cd deploy;
                                      zip -rq ../clientVBML.zip *"
@@ -127,7 +127,7 @@ jobs:
       docker exec -t ubuntu bash -c "cd /clientVBML;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
-                                     sh environment.sh mingw qt4;
+                                     sh environment.sh qt4;
                                      sh build.sh linux all;
                                      cd deploy;
                                      zip -rq ../clientVBML.zip *"
