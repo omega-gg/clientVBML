@@ -128,6 +128,10 @@ elif [ $1 = "linux" ]; then
         cp "$path"/libQtXml.so.4         deploy
         cp "$path"/libQtXmlPatterns.so.4 deploy
     else
+        cp "$path"/libicudata.so.* deploy
+        cp "$path"/libicui18n.so.* deploy
+        cp "$path"/libicuuc.so.*   deploy
+
         cp "$path"/libQt5Core.so.5        deploy
         cp "$path"/libQt5Network.so.5     deploy
         cp "$path"/libQt5Qml.so.5         deploy
