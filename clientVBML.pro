@@ -42,22 +42,11 @@ DEFINES += QUAZIP_BUILD \
            SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_BACKEND_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
-contains(QT_MAJOR_VERSION, 4) {
-    DEFINES += QT_4
-} else {
-    DEFINES += QT_LATEST
-}
-
-android {
-    DEFINES += SK_MOBILE
-} else {
-    DEFINES += SK_DESKTOP
-}
-
 deploy|android: DEFINES += SK_DEPLOY
 
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 
+include($$SK/src/Sk.pri)
 include(src/global/global.pri)
 include(src/controllers/controllers.pri)
 include(src/kernel/kernel.pri)
