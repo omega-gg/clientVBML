@@ -11,13 +11,17 @@ DESTDIR = $$_PRO_FILE_PWD_/bin
 
 contains(QT_MAJOR_VERSION, 4) {
     QT += network script xml xmlpatterns
-} else {
+
+} else:contains(QT_MAJOR_VERSION, 5) {
+
     QT += network qml xml xmlpatterns
+} else {
+    QT += network qml xml core5compat
 }
 
 # NOTE: This makes sure we don't build against the gui dependency. It does not work for Qt4
 #       because we need QDesktopServices.
-contains(QT_MAJOR_VERSION, 5) {
+greaterThan(QT_MAJOR_VERSION, 4) {
     QT -= gui
 }
 
