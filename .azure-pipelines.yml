@@ -3,18 +3,6 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: win32_qt4
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh environment.sh qt4
-      sh build.sh win32 all
-      cd deploy
-      7z a ../clientVBML.zip *
-  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
-    artifact: clientVBML-win32-qt4
-
 - job: win32_qt5
   pool:
     vmImage: "windows-latest"
@@ -39,32 +27,6 @@ jobs:
       sh all.sh
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-win64-qt5
-
-#--------------------------------------------------------------------------------------------------
-
-- job: win32_msvc_qt5
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh environment.sh msvc
-      sh build.sh win32 all
-      cd deploy
-      7z a ../clientVBML.zip *
-  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
-    artifact: clientVBML-win32-msvc-qt5
-
-- job: win64_msvc_qt5
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh environment.sh msvc
-      sh build.sh win64 all
-      cd deploy
-      7z a ../clientVBML.zip *
-  - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
-    artifact: clientVBML-win64-msvc-qt5
 
 #--------------------------------------------------------------------------------------------------
 # macOS
