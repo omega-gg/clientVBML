@@ -87,6 +87,7 @@ OTHER_FILES += 3rdparty.sh \
                LICENSE.md \
                AUTHORS.md \
                .azure-pipelines.yml \
+               .appveyor.yml \
                test/copy.sh \
                test/all.sh \
                test/duckduckgo.sh \
