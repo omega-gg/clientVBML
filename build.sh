@@ -214,12 +214,7 @@ fi
 echo "BUILDING clientVBML"
 echo "---------------------"
 
-if [ $qt = "qt4" ]; then
-
-    export QT_SELECT=qt4
-else
-    export QT_SELECT=qt5
-fi
+export QT_SELECT="$qt"
 
 config="CONFIG+=release"
 
