@@ -5,6 +5,8 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
+target="clientVBML"
+
 external="$PWD/../3rdparty"
 
 #--------------------------------------------------------------------------------------------------
@@ -156,9 +158,9 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
         if [ $1 = "win32" ]; then
 
-            target="x86"
+            abi="x86"
         else
-            target="x64"
+            abi="x64"
         fi
     fi
 
@@ -211,8 +213,8 @@ fi
 # Build clientVBML
 #--------------------------------------------------------------------------------------------------
 
-echo "BUILDING clientVBML"
-echo "---------------------"
+echo "BUILDING $target"
+echo "-------------------"
 
 export QT_SELECT="$qt"
 
@@ -233,8 +235,8 @@ elif [ $compiler = "msvc" ]; then
         spec=win32-msvc
     fi
 
-    PATH="$jom:$MSVC/bin/Host$target/$target:\
-$WindowsKit/bin/$WindowsKit_version/$target:\
+    PATH="$jom:$MSVC/bin/Host$abi/$abi:\
+$WindowsKit/bin/$WindowsKit_version/$abi:\
 $Qt/bin:$PATH"
 
 export INCLUDE="$MSVC/include:\
@@ -242,9 +244,9 @@ $WindowsKit/Include/$WindowsKit_version/ucrt:\
 $WindowsKit/Include/$WindowsKit_version/um:\
 $WindowsKit/Include/$WindowsKit_version/shared"
 
-export LIB="$MSVC/lib/$target:\
-$WindowsKit/Lib/$WindowsKit_version/ucrt/$target:\
-$WindowsKit/Lib/$WindowsKit_version/um/$target"
+export LIB="$MSVC/lib/$abi:\
+$WindowsKit/Lib/$WindowsKit_version/ucrt/$abi:\
+$WindowsKit/Lib/$WindowsKit_version/um/$abi"
 
 elif [ $1 = "macOS" ]; then
 
@@ -312,7 +314,7 @@ echo "------------------"
 if [ "$2" = "deploy" ]; then
 
     echo ""
-    echo "DEPLOYING clientVBML"
+    echo "DEPLOYING $target"
     echo "--------------------"
 
     sh deploy.sh $1
