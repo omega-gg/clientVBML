@@ -156,10 +156,10 @@ elif [ $1 = "linux" ]; then
         cp "$path"/libicui18n.so.* deploy
         cp "$path"/libicuuc.so.*   deploy
 
-        cp "$path/lib$QtX"Core.so.5    deploy
-        cp "$path/lib$QtX"Network.so.5 deploy
-        cp "$path/lib$QtX"Qml.so.5     deploy
-        cp "$path/lib$QtX"Xml.so.5     deploy
+        cp "$path/lib$QtX"Core.so.$qx    deploy
+        cp "$path/lib$QtX"Network.so.$qx deploy
+        cp "$path/lib$QtX"Qml.so.$qx     deploy
+        cp "$path/lib$QtX"Xml.so.$qx     deploy
 
         if [ $qt = "qt5" ]; then
 
@@ -173,10 +173,10 @@ elif [ $1 = "android" ]; then
 
     if [ $qt != "qt4" ]; then
 
-        cp "$path"/libQt5Core_*.so    deploy
-        cp "$path"/libQt5Network_*.so deploy
-        cp "$path"/libQt5Qml_*.so     deploy
-        cp "$path"/libQt5Xml_*.so     deploy
+        cp "$path/lib$QtX"Core_*.so    deploy
+        cp "$path/lib$QtX"Network_*.so deploy
+        cp "$path/lib$QtX"Qml_*.so     deploy
+        cp "$path/lib$QtX"Xml_*.so     deploy
 
         if [ $qt = "qt5" ]; then
 
