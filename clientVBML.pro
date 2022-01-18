@@ -99,5 +99,4 @@ OTHER_FILES += 3rdparty.sh \
                test/tmdb.sh \
                test/lastfm.sh \
                test/opensubtitles.sh \
-               dist/script/start.sh \
                dist/changes/1.1.0.md \
