@@ -48,6 +48,24 @@ else
     compiler="default"
 fi
 
+if [ $qt = "qt5" ]; then
+
+    QtX="Qt5"
+
+    qx="5"
+
+elif [ $qt = "qt6" ]; then
+
+    QtX="Qt6"
+
+    if [ $1 = "macOS" ]; then
+
+        qx="Current"
+    else
+        qx="6"
+    fi
+fi
+
 #--------------------------------------------------------------------------------------------------
 # Clean
 #--------------------------------------------------------------------------------------------------
@@ -97,25 +115,31 @@ if [ $os = "windows" ]; then
         cp "$path"/QtXml4.dll         deploy
         cp "$path"/QtXmlPatterns4.dll deploy
     else
-        cp "$path"/Qt5Core.dll        deploy
-        cp "$path"/Qt5Network.dll     deploy
-        cp "$path"/Qt5Qml.dll         deploy
-        cp "$path"/Qt5Xml.dll         deploy
-        cp "$path"/Qt5XmlPatterns.dll deploy
+        cp "$path/$QtX"Core.dll        deploy
+        cp "$path/$QtX"Network.dll     deploy
+        cp "$path/$QtX"Qml.dll         deploy
+        cp "$path/$QtX"Xml.dll         deploy
+        cp "$path/$QtX"XmlPatterns.dll deploy
     fi
 
 elif [ $1 = "macOS" ]; then
 
-    if [ $qt = "qt5" ]; then
+    if [ $qt != "qt4" ]; then
 
         # FIXME Qt 5.14 macOS: We have to copy qt.conf to avoid a segfault.
         cp "$path"/qt.conf deploy
 
-        cp "$path"/QtCore.dylib        deploy
-        cp "$path"/QtNetwork.dylib     deploy
-        cp "$path"/QtQml.dylib         deploy
-        cp "$path"/QtXml.dylib         deploy
-        cp "$path"/QtXmlPatterns.dylib deploy
+        cp "$path"/QtCore.dylib    deploy
+        cp "$path"/QtNetwork.dylib deploy
+        cp "$path"/QtQml.dylib     deploy
+        cp "$path"/QtXml.dylib     deploy
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path"/QtXmlPatterns.dylib deploy
+        else
+            cp "$path"/QtCore5Compat.dylib deploy
+        fi
     fi
 
 elif [ $1 = "linux" ]; then
@@ -132,22 +156,34 @@ elif [ $1 = "linux" ]; then
         cp "$path"/libicui18n.so.* deploy
         cp "$path"/libicuuc.so.*   deploy
 
-        cp "$path"/libQt5Core.so.5        deploy
-        cp "$path"/libQt5Network.so.5     deploy
-        cp "$path"/libQt5Qml.so.5         deploy
-        cp "$path"/libQt5Xml.so.5         deploy
-        cp "$path"/libQt5XmlPatterns.so.5 deploy
+        cp "$path/lib$QtX"Core.so.5    deploy
+        cp "$path/lib$QtX"Network.so.5 deploy
+        cp "$path/lib$QtX"Qml.so.5     deploy
+        cp "$path/lib$QtX"Xml.so.5     deploy
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path/lib$QtX"XmlPatterns.so.$qx deploy
+        else
+            cp "$path/lib$QtX"Core5Compat.so.$qx deploy
+        fi
     fi
 
 elif [ $1 = "android" ]; then
 
-    if [ $qt = "qt5" ]; then
+    if [ $qt != "qt4" ]; then
 
-        cp "$path"/libQt5Core_*.so        deploy
-        cp "$path"/libQt5Network_*.so     deploy
-        cp "$path"/libQt5Qml_*.so         deploy
-        cp "$path"/libQt5Xml_*.so         deploy
-        cp "$path"/libQt5XmlPatterns_*.so deploy
+        cp "$path"/libQt5Core_*.so    deploy
+        cp "$path"/libQt5Network_*.so deploy
+        cp "$path"/libQt5Qml_*.so     deploy
+        cp "$path"/libQt5Xml_*.so     deploy
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path/lib$QtX"XmlPatterns_*.so deploy
+        else
+            cp "$path/lib$QtX"Core5Compat_*.so deploy
+        fi
     fi
 fi
 
@@ -173,20 +209,26 @@ elif [ $1 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # Qt
 
-    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
+    install_name_tool -change @rpath/QtCore.framework/Versions/$qx/QtCore \
                               @loader_path/QtCore.dylib $target
 
-    install_name_tool -change @rpath/QtNetwork.framework/Versions/5/QtNetwork \
+    install_name_tool -change @rpath/QtNetwork.framework/Versions/$qx/QtNetwork \
                               @loader_path/QtNetwork.dylib $target
 
-    install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
+    install_name_tool -change @rpath/QtQml.framework/Versions/$qx/QtQml \
                               @loader_path/QtQml.dylib $target
 
-    install_name_tool -change @rpath/QtXml.framework/Versions/5/QtXml \
+    install_name_tool -change @rpath/QtXml.framework/Versions/$qx/QtXml \
                               @loader_path/QtXml.dylib $target
 
-    install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
-                              @loader_path/QtXmlPatterns.dylib $target
+    if [ $qt = "qt5" ]; then
+
+        install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/$qx/QtXmlPatterns \
+                                  @loader_path/QtXmlPatterns.dylib $target
+    else
+        install_name_tool -change @rpath/QtCore5Compat.framework/Versions/$qx/QtCore5Compat \
+                                  @loader_path/QtCore5Compat.dylib $target
+    fi
 
     #----------------------------------------------------------------------------------------------
 
