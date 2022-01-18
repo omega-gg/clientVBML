@@ -98,6 +98,10 @@ cd -
 
 path="$Sky/deploy"
 
+#--------------------------------------------------------------------------------------------------
+# Qt
+#--------------------------------------------------------------------------------------------------
+
 if [ $os = "windows" ]; then
 
     if [ $compiler = "mingw" ]; then
@@ -185,6 +189,27 @@ elif [ $1 = "android" ]; then
             cp "$path/lib$QtX"Core5Compat_*.so deploy
         fi
     fi
+fi
+
+#--------------------------------------------------------------------------------------------------
+# SSL
+#--------------------------------------------------------------------------------------------------
+
+if [ $os = "windows" ]; then
+
+    if [ $qt = "qt4" ]; then
+
+        cp "$path"/libeay32.dll deploy
+        cp "$path"/ssleay32.dll deploy
+    else
+        cp "$path"/libssl*.dll    deploy
+        cp "$path"/libcrypto*.dll deploy
+    fi
+
+elif [ $1 = "linux" ]; then
+
+    cp "$path"/libssl.so*    deploy
+    cp "$path"/libcrypto.so* deploy
 fi
 
 echo "-------------"
