@@ -238,6 +238,11 @@ elif [ $1 = "linux" ]; then
 
     cp bin/$target deploy
 
+    # NOTE: This script is useful for compatibilty. It enforces the application path for libraries.
+    cp dist/script/start.sh $deploy
+
+    chmod 755 $deploy/start.sh
+
 elif [ $1 = "android" ]; then
 
     cp bin/lib$target* deploy
