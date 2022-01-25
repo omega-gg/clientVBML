@@ -119,11 +119,17 @@ if [ $os = "windows" ]; then
         cp "$path"/QtXml4.dll         deploy
         cp "$path"/QtXmlPatterns4.dll deploy
     else
-        cp "$path/$QtX"Core.dll        deploy
-        cp "$path/$QtX"Network.dll     deploy
-        cp "$path/$QtX"Qml.dll         deploy
-        cp "$path/$QtX"Xml.dll         deploy
-        cp "$path/$QtX"XmlPatterns.dll deploy
+        cp "$path/$QtX"Core.dll    deploy
+        cp "$path/$QtX"Network.dll deploy
+        cp "$path/$QtX"Qml.dll     deploy
+        cp "$path/$QtX"Xml.dll     deploy
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path/$QtX"XmlPatterns.dll deploy
+        else
+            cp "$path/$QtX"Core5Compat.dll deploy
+        fi
     fi
 
 elif [ $1 = "macOS" ]; then
