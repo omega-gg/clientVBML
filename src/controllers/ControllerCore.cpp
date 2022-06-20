@@ -123,7 +123,7 @@ ControllerCore::ControllerCore() : WController()
 
         WControllerFileReply * reply = copyBackends();
 
-        connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
+        connect(reply, SIGNAL(complete(bool)), this, SLOT(onLoaded()));
     }
     else createIndex();
 
@@ -246,7 +246,7 @@ void ControllerCore::onIndexLoaded()
     // NOTE: This makes sure that we have the latest local vbml loaded.
     WControllerFileReply * reply = copyBackends();
 
-    connect(reply, SIGNAL(actionComplete(bool)), _index, SLOT(reload()));
+    connect(reply, SIGNAL(complete(bool)), _index, SLOT(reload()));
 #else
     _index->update();
 #endif
