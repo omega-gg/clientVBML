@@ -27,5 +27,4 @@ SOURCES += $$SK_CORE/io/WAbstractLoader.cpp \
            $$SK_CORE/io/WYamlReader.cpp \
            $$SK_GUI/io/WBackendLoader.cpp \
            $$SK_BACKEND/io/WBackendIndex.cpp \
-           $$SK_BACKEND/io/WBackendIndex_patch.cpp \
            $$SK_BACKEND/io/WBackendCache.cpp \

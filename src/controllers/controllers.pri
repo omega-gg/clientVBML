@@ -24,6 +24,7 @@ SOURCES += $$SK_CORE/controllers/WController.cpp \
            $$SK_CORE/controllers/WControllerNetwork.cpp \
            $$SK_CORE/controllers/WControllerDownload.cpp \
            $$SK_GUI/controllers/WControllerPlaylist.cpp \
+           $$SK_GUI/controllers/WControllerPlaylist_patch.cpp \
            $$SK_MEDIA/controllers/WControllerMedia.cpp \
            src/controllers/ControllerCore.cpp \
 

@@ -39,4 +39,3 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WTabTrack_patch.cpp \
            $$SK_GUI/media/WTabsTrack.cpp \
            $$SK_BACKEND/media/WBackendUniversal.cpp \
-           $$SK_BACKEND/media/WBackendUniversal_patch.cpp \
