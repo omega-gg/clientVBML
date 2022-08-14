@@ -382,7 +382,7 @@ void ControllerCore::onPlaylist()
 
     if (_playlist->isEmpty() == false)
     {
-        _output.append(vbml(_playlist->toVbml()));
+        _output.append(vbml(_playlist->toVbml(true)));
     }
 
     // NOTE: Maybe we are still loading another query.
@@ -399,7 +399,7 @@ void ControllerCore::onFolder()
 
     if (_folder->isEmpty() == false)
     {
-        _output.append(vbml(_folder->toVbml()));
+        _output.append(vbml(_folder->toVbml(true)));
     }
 
     // NOTE: Maybe we are still loading another query.
