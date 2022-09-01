@@ -4,7 +4,7 @@ clientVBML
 [![appveyor](https://ci.appveyor.com/api/projects/status/nc4cf1k90abftiyj?svg=true)](https://ci.appveyor.com/project/3unjee/clientVBML)
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
-clientVBML is a [VBML](http://omega.gg/VBML) console application built with Sky kit.<br>
+clientVBML is a [VBML](https://omega.gg/VBML) console application built with Sky kit.<br>
 Designed to retrieve and extract video resources through VBML [backends](https://github.com/omega-gg/backend).
 
 ## Usage
@@ -15,7 +15,7 @@ Designed to retrieve and extract video resources through VBML [backends](https:/
 
 ## Technology
 
-clientVBML is built in C++ with [Sky kit](http://omega.gg/Sky/sources).<br>
+clientVBML is built in C++ with [Sky kit](https://omega.gg/Sky/sources).<br>
 
 ## Platforms
 
@@ -26,14 +26,14 @@ clientVBML is built in C++ with [Sky kit](http://omega.gg/Sky/sources).<br>
 
 ## Requirements
 
-- [Sky](http://omega.gg/Sky/sources) latest version.
-- [Qt](http://download.qt.io/official_releases/qt) 4.8.0 / 5.5.0 or later.
+- [Sky](https://omega.gg/Sky/sources) latest version.
+- [Qt](https://download.qt.io/official_releases/qt) 4.8.0 / 5.5.0 or later.
 
 On Windows:
-- [MinGW](http://sourceforge.net/projects/mingw) or [Git for Windows](http://git-for-windows.github.io) with g++ 4.9.2 or later.
+- [MinGW](https://sourceforge.net/projects/mingw) or [Git for Windows](https://git-for-windows.github.io) with g++ 4.9.2 or later.
 
 Recommended:
-- [Qt Creator](http://download.qt.io/official_releases/qtcreator) 3.6.0 or later.
+- [Qt Creator](https://download.qt.io/official_releases/qtcreator) 3.6.0 or later.
 
 ## Quickstart
 
@@ -78,7 +78,7 @@ Copyright (C) 2015 - 2020 clientVBML authors | http://omega.gg/clientVBML
 
 ### Authors
 
-- Benjamin Arnaud aka [bunjee](http://bunjee.me) | <bunjee@omega.gg>
+- Benjamin Arnaud aka [bunjee](https://bunjee.me) | <bunjee@omega.gg>
 
 ### GNU General Public License Usage
 
