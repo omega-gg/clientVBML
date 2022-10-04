@@ -144,7 +144,11 @@ bool ControllerCore::usage() const
 
 void ControllerCore::createIndex()
 {
-    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend"));
+#ifdef SK_NO_TORRENT
+    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend/indexLite.vbml"));
+#else
+    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend/index.vbml"));
+#endif
 
     connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
 }
