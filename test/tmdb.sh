@@ -26,4 +26,4 @@ test()
 echo "--- tmdb ---"
 echo ""
 
-test "COVER" "vbml://run?backend=tmdb&method=cover&q=Modern Times 1936 mp4"
+test "COVER" "vbml://run?backend=tmdb&method=cover&q=Modern Times 1936"

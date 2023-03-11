@@ -10,6 +10,8 @@ sh duckduckgo.sh
 sh youtube.sh
 sh dailymotion.sh
 sh vimeo.sh
+sh odysee.sh
+sh twitch.sh
 sh soundcloud.sh
 sh tmdb.sh
 sh lastfm.sh

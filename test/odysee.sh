@@ -23,13 +23,7 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- twitch ---"
+echo "--- odysee ---"
 echo ""
 
-test "TRACK" "https://www.twitch.tv/videos/1171797190"
-
-test "TRACK LIVE" "https://www.twitch.tv/esl_sc2"
-
-test "SEARCH CHANNELS" "vbml://run?backend=twitch&method=search&label=tracks&q=starcraft"
-
-test "SEARCH VIDEOS" "vbml://run?backend=twitch&method=search&label=videos&q=starcraft"
+test "TRACK" "https://odysee.com/coldplay:e"
