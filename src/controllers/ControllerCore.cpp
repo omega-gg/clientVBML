@@ -323,7 +323,13 @@ void ControllerCore::onIndexUpdated()
 
             _media = wControllerMedia->getMedia(_url);
 
-            connect(_media, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMedia()));
+            if (_media->isLoaded())
+            {
+                delete _media;
+
+                _media = NULL;
+            }
+            else connect(_media, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMedia()));
 
             result = loadTrack(_url);
         }
