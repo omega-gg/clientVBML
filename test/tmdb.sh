@@ -26,4 +26,14 @@ test()
 echo "--- tmdb ---"
 echo ""
 
+test "TRACK MOVIE" "https://www.themoviedb.org/movie/11-star-wars"
+
+test "TRACK TV" "https://www.themoviedb.org/tv/82856-the-mandalorian"
+
+test "RELATED MOVIE" "vbml://run?backend=tmdb&method=related&label=tracks&q=movie/11-star-wars"
+
+test "RELATED TV" "vbml://run?backend=tmdb&method=related&label=tracks&q=tv/82856-the-mandalorian"
+
+test "SEARCH TRACKS" "vbml://run?backend=tmdb&method=search&label=tracks&q=Star Wars"
+
 test "COVER" "vbml://run?backend=tmdb&method=cover&q=Modern Times 1936"
