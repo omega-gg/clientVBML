@@ -34,6 +34,10 @@ test "RELATED MOVIE" "vbml://run?backend=tmdb&method=related&label=tracks&q=movi
 
 test "RELATED TV" "vbml://run?backend=tmdb&method=related&label=tracks&q=tv/82856-the-mandalorian"
 
+test "VIEW MOVIES" "vbml://run?backend=tmdb&method=view&q=movie/popular"
+
+test "VIEW SHOWS" "vbml://run?backend=tmdb&method=view&q=tv/popular"
+
 test "SEARCH TRACKS" "vbml://run?backend=tmdb&method=search&label=tracks&q=Star Wars"
 
 test "COVER" "vbml://run?backend=tmdb&method=cover&q=Modern Times 1936"
