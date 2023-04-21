@@ -35,8 +35,15 @@ test "RELATED MOVIE" "vbml://run?backend=tmdb&method=related&label=tracks&q=movi
 test "RELATED TV" "vbml://run?backend=tmdb&method=related&label=tracks&q=tv/82856-the-mandalorian"
 
 test "VIEW MOVIES" "vbml://run?backend=tmdb&method=view&q=movie/popular"
+test "VIEW SHOWS"  "vbml://run?backend=tmdb&method=view&q=tv/popular"
 
-test "VIEW SHOWS" "vbml://run?backend=tmdb&method=view&q=tv/popular"
+# discover/movie?sort_by=popularity.desc&with_watch_providers=8&watch_region=US
+test "DISCOVER MOVIES" \
+     "vbml://run?backend=tmdb&method=view&q=discover%2Fmovie%3Fsort_by%3Dpopularity.desc%26with_watch_providers%3D8%26watch_region%3DUS"
+
+# discover/tv?sort_by=popularity.desc&with_watch_providers=8&watch_region=US
+test "DISCOVER SHOWS" \
+     "vbml://run?backend=tmdb&method=view&q=discover%2Ftv%3Fsort_by%3Dpopularity.desc%26with_watch_providers%3D8%26watch_region%3DUS"
 
 test "SEARCH TRACKS" "vbml://run?backend=tmdb&method=search&label=tracks&q=Star Wars"
 
