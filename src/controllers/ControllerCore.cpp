@@ -281,8 +281,6 @@ void ControllerCore::onIndexUpdated()
     {
         qDebug("QUERY DETECTED");
 
-        QUrl source(_url);
-
         WLibraryItem::Type type = backend->typeFromQuery(_url);
 
         if (type == WLibraryItem::Folder)
@@ -343,6 +341,8 @@ void ControllerCore::onIndexUpdated()
             result = loadPlaylist(_url);
         }
     }
+
+    backend->tryDelete();
 
     if (result == false)
     {
