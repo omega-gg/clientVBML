@@ -23,15 +23,11 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- lastfm ---"
+echo "--- facebook ---"
 echo ""
 
-test "TRACK" "https://www.last.fm/music/Stardust/_/Music+Sounds+Better+With+You"
+test "TRACK" "https://www.facebook.com/watch/?v=1839090492859799"
 
-test "PLAYLIST" "https://www.last.fm/music/Stardust"
+test "PLAYLIST" "https://www.facebook.com/starcraftremasterizado/videos"
 
-test "RELATED" "vbml://run?backend=lastfm&method=related&label=tracks&q=Stardust%2F_%2FMusic%2BSounds%2BBetter%2BWith%2BYou"
-
-test "SEARCH TRACKS" "vbml://run?backend=lastfm&method=search&label=tracks&q=Daft Punk"
-
-test "COVER" "vbml://run?backend=lastfm&method=cover&label=Daft Punk&q=One More Time"
+test "RELATED" "vbml://run?backend=facebook&method=related&label=tracks&q=1839090492859799"

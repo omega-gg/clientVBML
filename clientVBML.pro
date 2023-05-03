@@ -94,6 +94,7 @@ OTHER_FILES += 3rdparty.sh \
                test/youtube.sh \
                test/dailymotion.sh \
                test/vimeo.sh \
+               test/facebook.sh \
                test/odysee.sh \
                test/twitch.sh \
                test/tiktok.sh \
