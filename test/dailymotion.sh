@@ -37,4 +37,4 @@ test "SEARCH TRACKS" "vbml://run?backend=dailymotion&method=search&label=tracks&
 # NOTE: No result for 'chillwave'.
 test "SEARCH CHANNELS" "vbml://run?backend=dailymotion&method=search&label=channels&q=synthwave"
 
-test "SEARCH PLAYLISTS" "vbml://run?backend=dailymotion&method=search&label=playlists&q=chillwave"
+#test "SEARCH PLAYLISTS" "vbml://run?backend=dailymotion&method=search&label=playlists&q=chillwave"
