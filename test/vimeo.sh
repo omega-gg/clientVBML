@@ -28,7 +28,7 @@ echo ""
 
 test "TRACK" "https://vimeo.com/370892294"
 
-test "PLAYLIST" "https://vimeo.com/dalz1el"
+test "FEED" "https://vimeo.com/dalz1el"
 
 test "RELATED" "vbml://run?backend=vimeo&method=related&label=tracks&q=370892294"
 

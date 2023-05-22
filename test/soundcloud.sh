@@ -28,7 +28,7 @@ echo ""
 
 test "TRACK" "https://soundcloud.com/bigwild/sylvan-esso-hey-mami-big-wild-remix"
 
-test "PLAYLIST" "https://soundcloud.com/bigwild"
+test "FEED" "https://soundcloud.com/bigwild"
 
 test "RELATED" "vbml://run?backend=soundcloud&method=related&label=tracks&q=bigwild/sylvan-esso-hey-mami-big-wild-remix"
 

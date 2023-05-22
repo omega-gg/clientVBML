@@ -28,7 +28,7 @@ echo ""
 
 test "TRACK" "https://www.dailymotion.com/video/x83nkms"
 
-test "PLAYLIST" "https://www.dailymotion.com/TechnoOverlfload"
+test "FEED" "https://www.dailymotion.com/TechnoOverlfload"
 
 test "RELATED" "vbml://run?backend=dailymotion&method=related&label=tracks&q=x83nkms"
 

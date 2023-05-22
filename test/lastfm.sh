@@ -28,7 +28,7 @@ echo ""
 
 test "TRACK" "https://www.last.fm/music/Stardust/_/Music+Sounds+Better+With+You"
 
-test "PLAYLIST" "https://www.last.fm/music/Stardust"
+test "FEED" "https://www.last.fm/music/Stardust"
 
 test "RELATED" "vbml://run?backend=lastfm&method=related&label=tracks&q=Stardust%2F_%2FMusic%2BSounds%2BBetter%2BWith%2BYou"
 
