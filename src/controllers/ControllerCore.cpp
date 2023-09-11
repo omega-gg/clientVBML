@@ -178,9 +178,7 @@ bool ControllerCore::loadTrack(const QString & url)
 
     connect(_playlist, SIGNAL(trackQueryCompleted()), this, SLOT(onTrack()));
 
-    _playlist->addSource(url);
-
-    _playlist->loadTrack(0);
+    _playlist->addSource(url, true);
 
     return _playlist->trackIsLoading(0);
 }
