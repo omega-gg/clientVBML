@@ -140,6 +140,7 @@ bool ControllerCore::usage() const
 
     return false;
 }
+
 //-------------------------------------------------------------------------------------------------
 
 void ControllerCore::createIndex()
