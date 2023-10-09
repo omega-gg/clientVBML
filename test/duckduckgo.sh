@@ -26,12 +26,12 @@ test()
 echo "--- duckduckgo ---"
 echo ""
 
-test "SEARCH URLS" "vbml://run?backend=duckduckgo&method=search&label=urls&q=site:https://youtube.com chillwave"
+test "SEARCH URLS" "vbml:run?backend=duckduckgo&method=search&label=urls&q=site:https://youtube.com chillwave"
 
-test "SEARCH SITE" "vbml://run?backend=duckduckgo&method=search&label=site&q=chillwave"
+test "SEARCH SITE" "vbml:run?backend=duckduckgo&method=search&label=site&q=chillwave"
 
-test "SEARCH TRACKS A" "vbml://run?backend=duckduckgo&method=search&label=tracks&q=chillwave"
-test "SEARCH TRACKS B" "vbml://run?backend=duckduckgo&method=search&label=tracks&q=disney+"
-test "SEARCH TRACKS C" "vbml://run?backend=duckduckgo&method=search&label=tracks&q=chillwave !"
+test "SEARCH TRACKS A" "vbml:run?backend=duckduckgo&method=search&label=tracks&q=chillwave"
+test "SEARCH TRACKS B" "vbml:run?backend=duckduckgo&method=search&label=tracks&q=disney+"
+test "SEARCH TRACKS C" "vbml:run?backend=duckduckgo&method=search&label=tracks&q=chillwave !"
 
-test "SEARCH PLAYLISTS" "vbml://run?backend=duckduckgo&method=search&label=playlists&q=chillwave"
+test "SEARCH PLAYLISTS" "vbml:run?backend=duckduckgo&method=search&label=playlists&q=chillwave"

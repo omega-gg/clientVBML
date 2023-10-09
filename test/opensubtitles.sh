@@ -26,4 +26,4 @@ test()
 echo "--- opensubtitles ---"
 echo ""
 
-test "SEARCH SUBTITLES" "vbml://run?backend=opensubtitles&method=subtitles&label=french&q=Modern Times"
+test "SEARCH SUBTITLES" "vbml:run?backend=opensubtitles&method=subtitles&label=french&q=Modern Times"

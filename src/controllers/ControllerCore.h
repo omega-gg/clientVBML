@@ -56,6 +56,8 @@ private: // Functions
     bool loadTrack   (const QString & url);
     bool loadPlaylist(const QString & url);
 
+    bool loadCover(const QString & label, const QString & q);
+
     void writeOutput() const;
 
     QString vbml(const QString & content) const;

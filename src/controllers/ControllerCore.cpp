@@ -195,6 +195,25 @@ bool ControllerCore::loadPlaylist(const QString & url)
     return _playlist->queryIsLoading();
 }
 
+bool ControllerCore::loadCover(const QString & label, const QString & q)
+{
+    _playlist = new WPlaylist;
+
+    connect(_playlist, SIGNAL(trackQueryCompleted()), this, SLOT(onTrack()));
+
+    WTrack track(QString(), WTrack::LoadCover);
+
+    track.setTitle(q);
+
+    track.setAuthor(label);
+
+    _playlist->addTrack(track);
+
+    _playlist->loadTrack(0);
+
+    return _playlist->trackIsLoading(0);
+}
+
 //-------------------------------------------------------------------------------------------------
 
 void ControllerCore::writeOutput() const
@@ -307,7 +326,8 @@ void ControllerCore::onIndexUpdated()
         {
             qDebug("COVER DETECTED");
 
-            result = loadTrack(_url);
+            result = loadCover(WControllerNetwork::extractUrlValue(_url, "label"),
+                               WControllerNetwork::extractUrlValue(_url, "q"));
         }
     }
     else

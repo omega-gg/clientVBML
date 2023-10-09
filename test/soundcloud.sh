@@ -30,10 +30,10 @@ test "TRACK" "https://soundcloud.com/bigwild/sylvan-esso-hey-mami-big-wild-remix
 
 test "FEED" "https://soundcloud.com/bigwild"
 
-test "RELATED" "vbml://run?backend=soundcloud&method=related&label=tracks&q=bigwild/sylvan-esso-hey-mami-big-wild-remix"
+test "RELATED" "vbml:run?backend=soundcloud&method=related&label=tracks&q=bigwild/sylvan-esso-hey-mami-big-wild-remix"
 
-test "SEARCH TRACKS" "vbml://run?backend=soundcloud&method=search&label=tracks&q=chillwave"
+test "SEARCH TRACKS" "vbml:run?backend=soundcloud&method=search&label=tracks&q=chillwave"
 
-test "SEARCH PEOPLE" "vbml://run?backend=soundcloud&method=search&label=people&q=chillwave"
+test "SEARCH PEOPLE" "vbml:run?backend=soundcloud&method=search&label=people&q=chillwave"
 
-test "SEARCH PLAYLISTS" "vbml://run?backend=soundcloud&method=search&label=playlists&q=chillwave"
+test "SEARCH PLAYLISTS" "vbml:run?backend=soundcloud&method=search&label=playlists&q=chillwave"

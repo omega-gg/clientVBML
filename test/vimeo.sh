@@ -30,12 +30,12 @@ test "TRACK" "https://vimeo.com/370892294"
 
 test "FEED" "https://vimeo.com/dalz1el"
 
-test "RELATED" "vbml://run?backend=vimeo&method=related&label=tracks&q=370892294"
+test "RELATED" "vbml:run?backend=vimeo&method=related&label=tracks&q=370892294"
 
-test "SEARCH TRACKS" "vbml://run?backend=vimeo&method=search&label=tracks&q=chillwave"
+test "SEARCH TRACKS" "vbml:run?backend=vimeo&method=search&label=tracks&q=chillwave"
 
-test "SEARCH PEOPLE" "vbml://run?backend=vimeo&method=search&label=people&q=chillwave"
+test "SEARCH PEOPLE" "vbml:run?backend=vimeo&method=search&label=people&q=chillwave"
 
-test "SEARCH CHANNELS" "vbml://run?backend=vimeo&method=search&label=channels&q=chillwave"
+test "SEARCH CHANNELS" "vbml:run?backend=vimeo&method=search&label=channels&q=chillwave"
 
-test "SEARCH PLAYLISTS" "vbml://run?backend=vimeo&method=search&label=playlists&q=chillwave"
+test "SEARCH PLAYLISTS" "vbml:run?backend=vimeo&method=search&label=playlists&q=chillwave"
