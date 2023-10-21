@@ -32,6 +32,8 @@ test "TRACK LIVE" "https://www.youtube.com/watch?v=UedTcufyrHc"
 
 test "FEED" "https://www.youtube.com/channel/UCZyXa4H06Ws3Pwom9cYEdDA"
 
+test "FEED WEIRD" "https://www.youtube.com/@the.drum.thing."
+
 test "RELATED" "vbml:run?backend=youtube&method=related&label=tracks&q=wOMwO5T3yT4"
 
 test "SEARCH TRACKS" "vbml:run?backend=youtube&method=search&label=tracks&q=chillwave"
