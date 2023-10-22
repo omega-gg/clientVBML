@@ -96,6 +96,7 @@ OTHER_FILES += 3rdparty.sh \
                test/vimeo.sh \
                test/facebook.sh \
                test/odysee.sh \
+               test/peertube.sh \
                test/twitch.sh \
                test/tiktok.sh \
                test/soundcloud.sh \

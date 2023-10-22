@@ -12,6 +12,7 @@ sh dailymotion.sh
 sh vimeo.sh
 sh facebook.sh
 sh odysee.sh
+sh peertube.sh
 sh twitch.sh
 sh tiktok.sh
 sh soundcloud.sh
