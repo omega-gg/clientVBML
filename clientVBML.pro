@@ -92,6 +92,7 @@ OTHER_FILES += 3rdparty.sh \
                test/facebook.sh \
                test/odysee.sh \
                test/peertube.sh \
+               test/iptv.sh \
                test/twitch.sh \
                test/tiktok.sh \
                test/soundcloud.sh \
