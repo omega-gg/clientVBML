@@ -23,13 +23,14 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- peertube ---"
+echo "--- vox ---"
 echo ""
 
-test "TRACK" "https://peertube.dsmouse.net/w/719666f2-0fb6-489c-8339-038f902aa55c"
+test "TRACK" "https://vox.omega.gg/w/bj3KJGQcXVMsaDfSLJHjGX"
 
-test "TRACK SHORT" "https://peertube.fr/w/2tJSZJJWzXy83ER5A98nBF"
+test "RELATED" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg/w/bj3KJGQcXVMsaDfSLJHjGX"
 
-test "RELATED" "vbml:run?backend=peertube&method=related&label=tracks&q=peertube.fr/w/kkGMgK9ZtnKfYAgnEtQxbv"
+# NOTE: We need to encode the url to provide the #t=1 extension.
+test "RELATED TIME" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg%2Fw%2Fbj3KJGQcXVMsaDfSLJHjGX%2523t%3D1"
 
-test "SEARCH TRACKS" "vbml:run?backend=peertube&method=search&label=tracks&q=peertube.fr/api/v1/search/videos?search=peertube"
+test "SEARCH TRACKS" "vbml:run?backend=vox&method=search&label=tracks&q=vox"

@@ -313,7 +313,7 @@ void ControllerCore::onIndexUpdated()
 
             result = _folder->queryIsLoading();
         }
-        else if (type == WLibraryItem::Playlist)
+        else
         {
             qDebug("PLAYLIST DETECTED");
 
