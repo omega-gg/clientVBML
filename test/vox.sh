@@ -28,6 +28,8 @@ echo ""
 
 test "TRACK" "https://vox.omega.gg/w/bj3KJGQcXVMsaDfSLJHjGX"
 
+test "FEED" "https://vox.omega.gg/c/vox"
+
 test "RELATED" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg/w/bj3KJGQcXVMsaDfSLJHjGX"
 
 # NOTE: We need to encode the url to provide the #t=1 extension.
