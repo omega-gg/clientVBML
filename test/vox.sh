@@ -26,13 +26,13 @@ test()
 echo "--- vox ---"
 echo ""
 
-test "TRACK" "https://vox.omega.gg/w/bj3KJGQcXVMsaDfSLJHjGX"
+test "TRACK" "https://vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB"
 
 test "FEED" "https://vox.omega.gg/c/vox"
 
-test "RELATED" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg/w/bj3KJGQcXVMsaDfSLJHjGX"
+test "RELATED" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB"
 
 # NOTE: We need to encode the url to provide the #t=1 extension.
-test "RELATED TIME" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg%2Fw%2Fbj3KJGQcXVMsaDfSLJHjGX%2523t%3D1"
+test "RELATED TIME" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg%2Fw%2F9d5fYXTcjLHReVUQabKRwB%23t%3D1"
 
-test "SEARCH TRACKS" "vbml:run?backend=vox&method=search&label=tracks&q=vox"
+test "SEARCH TRACKS" "vbml:run?backend=vox&method=search&label=tracks&q=movie"
