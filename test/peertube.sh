@@ -34,4 +34,6 @@ test "FEED" "https://peertube.fr/c/joinpeertube@framatube.org"
 
 test "RELATED" "vbml:run?backend=peertube&method=related&label=tracks&q=peertube.fr/w/kkGMgK9ZtnKfYAgnEtQxbv"
 
-test "SEARCH TRACKS" "vbml:run?backend=peertube&method=search&label=tracks&q=peertube.fr/api/v1/search/videos?search=peertube"
+test "TRENDING" "vbml:run?backend=peertube&method=view&q=peertube.fr/trending"
+
+test "SEARCH TRACKS" "vbml:run?backend=peertube&method=search&label=tracks&q=peertube.fr?search=peertube"
