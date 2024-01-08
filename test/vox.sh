@@ -30,11 +30,10 @@ test "TRACK" "https://vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB"
 
 test "FEED" "https://vox.omega.gg/c/vox"
 
-test "RELATED" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB"
-
 test "TRENDING" "vbml:run?backend=vox&method=view&q=vox.omega.gg/trending"
 
-# NOTE: We need to encode the url to provide the #t=1 extension.
-test "RELATED TIME" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg%2Fw%2F9d5fYXTcjLHReVUQabKRwB%23t%3D1"
+test "RELATED" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB"
+
+test "RELATED TIME" "vbml:run?backend=vox&method=related&label=tracks&q=vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB&t=1"
 
 test "SEARCH TRACKS" "vbml:run?backend=vox&method=search&label=tracks&q=movie"
