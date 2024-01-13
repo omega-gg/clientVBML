@@ -313,12 +313,6 @@ void ControllerCore::onIndexUpdated()
 
             result = _folder->queryIsLoading();
         }
-        else
-        {
-            qDebug("PLAYLIST DETECTED");
-
-            result = loadPlaylist(_url);
-        }
 
         QString method = WControllerNetwork::extractUrlValue(_url, "method");
 
@@ -328,6 +322,12 @@ void ControllerCore::onIndexUpdated()
 
             result = loadCover(WControllerNetwork::extractUrlValue(_url, "label"),
                                WControllerNetwork::extractUrlValue(_url, "q"));
+        }
+        else
+        {
+            qDebug("PLAYLIST DETECTED");
+
+            result = loadPlaylist(_url);
         }
     }
     else
