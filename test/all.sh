@@ -10,6 +10,7 @@ sh duckduckgo.sh
 sh youtube.sh
 sh dailymotion.sh
 sh vimeo.sh
+sh twitter.sh
 sh facebook.sh
 sh odysee.sh
 sh peertube.sh
