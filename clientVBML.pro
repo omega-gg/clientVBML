@@ -2,8 +2,8 @@ SK = $$_PRO_FILE_PWD_/../Sky
 
 SK_CORE    = $$SK/src/SkCore/src
 SK_GUI     = $$SK/src/SkGui/src
-SK_MEDIA   = $$SK/src/SkMedia/src
 SK_BACKEND = $$SK/src/SkBackend/src
+SK_MEDIA   = $$SK/src/SkMedia/src
 
 TARGET = clientVBML
 
@@ -43,7 +43,7 @@ contains(QT_MAJOR_VERSION, 4) {
 DEFINES += QUAZIP_BUILD \
            SK_CONSOLE \
            SK_NO_QML SK_NO_PLAYER SK_NO_TORRENT \
-           SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_BACKEND_LIBRARY \
+           SK_CORE_LIBRARY SK_GUI_LIBRARY SK_BACKEND_LIBRARY SK_MEDIA_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
 deploy|android: DEFINES += SK_DEPLOY
@@ -65,8 +65,8 @@ include(src/3rdparty/libcharsetdetect/libcharsetdetect.pri)
 
 INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkGui \
-               $$SK/include/SkMedia \
                $$SK/include/SkBackend \
+               $$SK/include/SkMedia \
                $$SK/include \
                $$_PRO_FILE_PWD_/include/clientVBML
 
