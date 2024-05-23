@@ -74,7 +74,7 @@ Deploy the application and its dependencies:
 
 ## License
 
-Copyright (C) 2015 - 2020 clientVBML authors | https://omega.gg/clientVBML
+Copyright (C) 2015 - 2024 clientVBML authors | https://omega.gg/clientVBML
 
 ### Authors
 
