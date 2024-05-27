@@ -134,11 +134,9 @@ ControllerCore::ControllerCore() : WController()
 // Functions private
 //-------------------------------------------------------------------------------------------------
 
-bool ControllerCore::usage() const
+void ControllerCore::usage() const
 {
     qDebug("Usage: clientVBML <url>");
-
-    return false;
 }
 
 //-------------------------------------------------------------------------------------------------

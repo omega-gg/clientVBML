@@ -47,7 +47,7 @@ public: // Interface
     Q_INVOKABLE bool run(int & argc, char ** argv);
 
 private: // Functions
-    bool usage() const;
+    void usage() const;
 
     void createIndex();
 
