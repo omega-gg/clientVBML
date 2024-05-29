@@ -76,13 +76,13 @@ private slots:
 private: // Variables
     QString _path;
 
-    QString _url;
-
     WBackendIndex * _index;
 
     WMediaReply    * _media;
     WPlaylist      * _playlist;
     WLibraryFolder * _folder;
+
+    QString _url;
 
     QString _output;
 
