@@ -407,10 +407,7 @@ void ControllerCore::onPlaylist()
 {
     qDebug("PLAYLIST LOADED");
 
-    if (_playlist->isEmpty() == false)
-    {
-        _output.append(vbml(_playlist->toVbml(2)));
-    }
+    _output.append(vbml(_playlist->toVbml(2)));
 
     // NOTE: Maybe we are still loading another query.
     if (_playlist->queryIsLoading()) return;
@@ -424,10 +421,7 @@ void ControllerCore::onFolder()
 {
     qDebug("FOLDER LOADED");
 
-    if (_folder->isEmpty() == false)
-    {
-        _output.append(vbml(_folder->toVbml(2)));
-    }
+    _output.append(vbml(_folder->toVbml(2)));
 
     // NOTE: Maybe we are still loading another query.
     if (_folder->queryIsLoading()) return;

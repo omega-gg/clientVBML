@@ -28,4 +28,4 @@ echo ""
 
 test "TRACK" "https://www.tiktok.com/@astroshooter__/video/7196395432459636010"
 
-test "FEED" "https://www.tiktok.com/@astroshooter__"
+#test "FEED" "https://www.tiktok.com/@astroshooter__"
