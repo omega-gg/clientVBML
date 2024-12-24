@@ -311,21 +311,23 @@ void ControllerCore::onIndexUpdated()
 
             result = _folder->queryIsLoading();
         }
-
-        QString method = WControllerNetwork::extractUrlValue(_url, "method");
-
-        if (method == "cover")
-        {
-            qDebug("COVER DETECTED");
-
-            result = loadCover(WControllerNetwork::extractUrlValue(_url, "label"),
-                               WControllerNetwork::extractUrlValue(_url, "q"));
-        }
         else
         {
-            qDebug("PLAYLIST DETECTED");
+            QString method = WControllerNetwork::extractUrlValue(_url, "method");
 
-            result = loadPlaylist(_url);
+            if (method == "cover")
+            {
+                qDebug("COVER DETECTED");
+
+                result = loadCover(WControllerNetwork::extractUrlValue(_url, "label"),
+                                   WControllerNetwork::extractUrlValue(_url, "q"));
+            }
+            else
+            {
+                qDebug("PLAYLIST DETECTED");
+
+                result = loadPlaylist(_url);
+            }
         }
     }
     else
@@ -363,7 +365,7 @@ void ControllerCore::onIndexUpdated()
 
     if (result == false)
     {
-        QCoreApplication::exit(0);
+        QCoreApplication::exit(1);
     }
 }
 
@@ -407,7 +409,10 @@ void ControllerCore::onPlaylist()
 {
     qDebug("PLAYLIST LOADED");
 
-    _output.append(vbml(_playlist->toVbml(2)));
+    if (_playlist->title().isEmpty() == false || _playlist->isEmpty() == false)
+    {
+        _output.append(vbml(_playlist->toVbml(2)));
+    }
 
     // NOTE: Maybe we are still loading another query.
     if (_playlist->queryIsLoading()) return;
@@ -421,7 +426,10 @@ void ControllerCore::onFolder()
 {
     qDebug("FOLDER LOADED");
 
-    _output.append(vbml(_folder->toVbml(2)));
+    if (_folder->title().isEmpty() == false || _folder->isEmpty() == false)
+    {
+        _output.append(vbml(_folder->toVbml(2)));
+    }
 
     // NOTE: Maybe we are still loading another query.
     if (_folder->queryIsLoading()) return;
