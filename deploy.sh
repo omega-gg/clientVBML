@@ -135,6 +135,9 @@ if [ $os = "windows" ]; then
             cp "$path/$QtX"XmlPatterns.dll $deploy
         else
             cp "$path/$QtX"Core5Compat.dll $deploy
+
+            cp "$path"/tls/qopensslbackend.dll  $deploy/tls
+            cp "$path"/tls/qschannelbackend.dll $deploy/tls
         fi
     fi
 
@@ -155,6 +158,8 @@ elif [ $1 = "macOS" ]; then
             cp "$path"/QtXmlPatterns.dylib $deploy
         else
             cp "$path"/QtCore5Compat.dylib $deploy
+
+            cp "$path"/tls/libqopensslbackend.dylib $deploy/tls
         fi
     fi
 
@@ -182,6 +187,8 @@ elif [ $1 = "linux" ]; then
             cp "$path/lib$QtX"XmlPatterns.so.$qx $deploy
         else
             cp "$path/lib$QtX"Core5Compat.so.$qx $deploy
+
+            cp "$path"/tls/libqopensslbackend.so $deploy/tls
         fi
     fi
 
