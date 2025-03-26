@@ -70,6 +70,12 @@ INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include \
                $$_PRO_FILE_PWD_/include/clientVBML
 
+# NOTE android: Required for qandroidextras_p
+android:greaterThan(QT_MAJOR_VERSION, 4) {
+    INCLUDEPATH += $$SK/include/$$QTX \
+                   $$SK/include/$$QTX/QtCore
+}
+
 # Windows dependency for ShellExecuteA
 win32-msvc*:LIBS += shell32.lib
 
