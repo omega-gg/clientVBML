@@ -108,6 +108,13 @@ ControllerCore::ControllerCore() : WController()
     W_CREATE_CONTROLLER(WControllerMedia);
 
     //---------------------------------------------------------------------------------------------
+    // Log
+
+#ifndef SK_DEPLOY
+    wControllerMedia->startLog();
+#endif
+
+    //---------------------------------------------------------------------------------------------
     // Backend index
 
     QString path = _path + "/backend";
