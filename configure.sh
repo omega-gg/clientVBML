@@ -5,6 +5,8 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
+target="clientVBML"
+
 Sky="../Sky"
 
 external="../3rdparty"
@@ -69,7 +71,7 @@ fi
 # MinGW
 #--------------------------------------------------------------------------------------------------
 
-echo "CONFIGURING clientVBML"
+echo "CONFIGURING $target"
 echo "----------------------"
 
 if [ $compiler = "mingw" ]; then
