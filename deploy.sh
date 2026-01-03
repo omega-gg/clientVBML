@@ -19,6 +19,58 @@ compiler_win="mingw"
 qt="qt6"
 
 #--------------------------------------------------------------------------------------------------
+# Functions
+#--------------------------------------------------------------------------------------------------
+
+deployMacOS()
+{
+    installMacOS "$target" ""
+
+    if [ -f "QtWebEngineProcess" ]; then
+
+        installMacOS "QtWebEngineProcess" ""
+    fi
+
+    for file in *.dylib; do
+
+        [ -e "$file" ] || continue
+
+        installMacOS "$file" ""
+    done
+
+    find platforms \
+         imageformats \
+         tls \
+         multimedia \
+         QtQuick \
+         QtQml \
+         QtMultimedia \
+         QtWebView \
+         QtWebEngine \
+         QtWebChannel \
+    -name "*.dylib" | while read -r plugin; do
+
+        case "$plugin" in
+            */*/*/*) path="../../" ;;
+            *)       path="../"    ;;
+        esac
+
+        installMacOS "$plugin" "$path"
+    done
+}
+
+installMacOS()
+{
+    list=$(otool -L "$1" | grep -o "Qt[A-Za-z0-9]*\.framework" | sed 's/\.framework//' | sort -u)
+
+    for library in $list; do
+
+        install_name_tool -change "@rpath/$library.framework/Versions/$qx/$library" \
+                                  "@loader_path/${2}${library}.dylib" "$1" 2>/dev/null
+    done
+}
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
@@ -266,33 +318,11 @@ elif [ $1 = "macOS" ]; then
 
     cd $deploy
 
-    #----------------------------------------------------------------------------------------------
-    # Qt
-
-    install_name_tool -change @rpath/QtCore.framework/Versions/$qx/QtCore \
-                              @loader_path/QtCore.dylib $target
-
-    install_name_tool -change @rpath/QtNetwork.framework/Versions/$qx/QtNetwork \
-                              @loader_path/QtNetwork.dylib $target
-
-    install_name_tool -change @rpath/QtQml.framework/Versions/$qx/QtQml \
-                              @loader_path/QtQml.dylib $target
-
-    install_name_tool -change @rpath/QtXml.framework/Versions/$qx/QtXml \
-                              @loader_path/QtXml.dylib $target
-
-    if [ $qt = "qt5" ]; then
-
-        install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/$qx/QtXmlPatterns \
-                                  @loader_path/QtXmlPatterns.dylib $target
-    else
-        install_name_tool -change @rpath/QtCore5Compat.framework/Versions/$qx/QtCore5Compat \
-                                  @loader_path/QtCore5Compat.dylib $target
-    fi
-
-    #----------------------------------------------------------------------------------------------
+    deployMacOS
 
     cd -
+
+    codesign --force --deep --sign - deploy/$target.app
 
 elif [ $1 = "linux" ]; then
 
