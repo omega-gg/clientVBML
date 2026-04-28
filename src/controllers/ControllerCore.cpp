@@ -1,6 +1,6 @@
 //=================================================================================================
 /*
-    Copyright (C) 2015-2020 clientVBML authors united with omega. <http://omega.gg/about>
+    Copyright (C) 2015-2026 clientVBML authors united with omega. <http://omega.gg/about>
 
     Author: Benjamin Arnaud. <http://bunjee.me> <bunjee@omega.gg>
 
