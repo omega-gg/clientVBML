@@ -23,15 +23,17 @@ test()
 # Requests
 #--------------------------------------------------------------------------------------------------
 
-echo "--- lastfm ---"
+echo "--- youtubemusic ---"
 echo ""
 
-test "TRACK" "https://www.last.fm/music/Stardust/_/Music+Sounds+Better+With+You"
+test "SEARCH TRACKS" "vbml:run?backend=youtubemusic&method=search&label=tracks&q=Daft Punk"
 
-test "FEED" "https://www.last.fm/music/Stardust"
+test "SEARCH ALBUMS" "vbml:run?backend=youtubemusic&method=search&label=albums&q=Daft Punk"
 
-test "RELATED" "vbml:run?backend=lastfm&method=related&label=tracks&q=Stardust%2F_%2FMusic%2BSounds%2BBetter%2BWith%2BYou"
+test "SEARCH ARTISTS" "vbml:run?backend=youtubemusic&method=search&label=artists&q=Daft Punk"
 
-test "SEARCH TRACKS" "vbml:run?backend=lastfm&method=search&label=tracks&q=Daft Punk"
+test "ALBUM" "https://music.youtube.com/browse/MPREb_K8qWMWVqXGi"
 
-test "COVER" "vbml:run?backend=lastfm&method=cover&label=Daft Punk&q=One More Time.mp3"
+test "ARTIST" "https://music.youtube.com/channel/UCRr1xG_2WIDs18a6cIiCxeA"
+
+test "COVER" "vbml:run?backend=youtubemusic&method=cover&label=Daft Punk&q=One More Time.mp3"

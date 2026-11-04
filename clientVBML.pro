@@ -93,6 +93,7 @@ OTHER_FILES += 3rdparty.sh \
                test/all.sh \
                test/duckduckgo.sh \
                test/youtube.sh \
+               test/youtubemusic.sh \
                test/dailymotion.sh \
                test/vimeo.sh \
                test/twitter.sh \
@@ -105,6 +106,5 @@ OTHER_FILES += 3rdparty.sh \
                test/tiktok.sh \
                test/soundcloud.sh \
                test/tmdb.sh \
-               test/lastfm.sh \
                test/opensubtitles.sh \
                dist/changes/1.1.0.md \

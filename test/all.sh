@@ -8,6 +8,7 @@
 
 sh duckduckgo.sh
 sh youtube.sh
+sh youtubemusic.sh
 sh dailymotion.sh
 sh vimeo.sh
 sh twitter.sh
@@ -20,5 +21,4 @@ sh twitch.sh
 sh tiktok.sh
 sh soundcloud.sh
 sh tmdb.sh
-sh lastfm.sh
 sh opensubtitles.sh
