@@ -60,6 +60,8 @@ ControllerCore::ControllerCore() : WController()
     _playlist = NULL;
     _folder   = NULL;
 
+    _code = 0;
+
     //---------------------------------------------------------------------------------------------
     // Settings
 
@@ -214,7 +216,7 @@ bool ControllerCore::loadCover(const QString & label, const QString & q)
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::writeOutput() const
+void ControllerCore::writeOutput()
 {
     // NOTE: Maybe another query is still loading.
     if (_media || _playlist || _folder) return;
@@ -222,9 +224,9 @@ void ControllerCore::writeOutput() const
     if (_output.isEmpty())
     {
         // NOTE: If the output is empty we return an erorr.
-        QCoreApplication::exit(1);
+        quit(1);
 
-        // NOTE: We need to return after 'exit'.
+        // NOTE: We need to return after 'quit'.
         return;
     }
 
@@ -239,7 +241,18 @@ void ControllerCore::writeOutput() const
 
     stream << _output;
 
-    QCoreApplication::exit(0);
+    quit(0);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::quit(int code)
+{
+    _code = code;
+
+    // NOTE: QCoreApplication::exit emits aboutToQuit right away and that deletes the controllers.
+    //       We are usually called from a signal of one of those, so we wait for the event loop.
+    QMetaObject::invokeMethod(this, "onQuit", Qt::QueuedConnection);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -285,9 +298,9 @@ void ControllerCore::onIndexUpdated()
     {
         qWarning("ControllerCore::onIndexUpdated: Cannot find a backend for %s.", _url.C_STR);
 
-        QCoreApplication::exit(1);
+        quit(1);
 
-        // NOTE: We need to return after 'exit'.
+        // NOTE: We need to return after 'quit'.
         return;
     }
 
@@ -365,7 +378,7 @@ void ControllerCore::onIndexUpdated()
 
     if (result == false)
     {
-        QCoreApplication::exit(1);
+        quit(1);
     }
 }
 
@@ -437,4 +450,11 @@ void ControllerCore::onFolder()
     _folder = NULL;
 
     writeOutput();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::onQuit()
+{
+    QCoreApplication::exit(_code);
 }

@@ -58,7 +58,9 @@ private: // Functions
 
     bool loadCover(const QString & label, const QString & q);
 
-    void writeOutput() const;
+    void writeOutput();
+
+    void quit(int code);
 
     QString vbml(const QString & content) const;
 
@@ -73,6 +75,8 @@ private slots:
     void onPlaylist();
     void onFolder  ();
 
+    void onQuit();
+
 private: // Variables
     QString _path;
 
@@ -85,6 +89,8 @@ private: // Variables
     QString _url;
 
     QString _output;
+
+    int _code;
 
 private:
     Q_DISABLE_COPY      (ControllerCore)
