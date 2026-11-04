@@ -244,8 +244,6 @@ void ControllerCore::writeOutput()
     quit(0);
 }
 
-//-------------------------------------------------------------------------------------------------
-
 void ControllerCore::quit(int code)
 {
     _code = code;
