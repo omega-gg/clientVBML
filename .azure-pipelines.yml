@@ -42,7 +42,7 @@ jobs:
       sh environment.sh qt5
       sh build.sh macOS all
       cd deploy
-      zip -rq ../clientVBML.zip *
+      zip -rqy ../clientVBML.zip *
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-macOS-qt5
 
@@ -54,7 +54,7 @@ jobs:
       sh environment.sh qt6
       sh build.sh macOS all
       cd deploy
-      zip -rq ../clientVBML.zip *
+      zip -rqy ../clientVBML.zip *
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-macOS-qt6
 
@@ -75,7 +75,7 @@ jobs:
                                      sh environment.sh qt4;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../clientVBML.zip *"
+                                     zip -rqy ../clientVBML.zip *"
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-linux32-qt4
 
@@ -92,7 +92,7 @@ jobs:
                                      sh environment.sh qt4;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../clientVBML.zip *"
+                                     zip -rqy ../clientVBML.zip *"
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-linux64-qt4
 
@@ -111,7 +111,7 @@ jobs:
                                      sh environment.sh qt5;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../clientVBML.zip *"
+                                     zip -rqy ../clientVBML.zip *"
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-linux32-qt5
 
@@ -123,7 +123,7 @@ jobs:
       sh environment.sh qt5
       sh build.sh linux all
       cd deploy
-      zip -rq ../clientVBML.zip *
+      zip -rqy ../clientVBML.zip *
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-linux64-qt5
 
@@ -137,7 +137,7 @@ jobs:
       sh environment.sh qt6
       sh build.sh linux all
       cd deploy
-      zip -rq ../clientVBML.zip *
+      zip -rqy ../clientVBML.zip *
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-linux64-qt6
 
@@ -153,7 +153,7 @@ jobs:
       sh environment.sh qt5
       sh build.sh android all
       cd deploy
-      zip -rq ../clientVBML.zip *
+      zip -rqy ../clientVBML.zip *
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-android-qt5
 
@@ -165,6 +165,6 @@ jobs:
       sh environment.sh qt6
       sh build.sh android all
       cd deploy
-      zip -rq ../clientVBML.zip *
+      zip -rqy ../clientVBML.zip *
   - publish: $(System.DefaultWorkingDirectory)/clientVBML.zip
     artifact: clientVBML-android-qt6
