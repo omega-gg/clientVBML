@@ -45,7 +45,11 @@ int main(int argc, char * argv[])
 
     if (core->run(argc, argv))
     {
-        return application->exec();
+        int result = application->exec();
+
+        delete application;
+
+        return result;
     }
     else return 1;
 }
